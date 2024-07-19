@@ -17,6 +17,8 @@ class NavigationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     if (path.contains('add')) return child;
 
+    final visible = hasBottomBar();
+
     return Scaffold(
       backgroundColor: AppTheme.bg,
       drawer: const SettingsDrawer(),
@@ -26,10 +28,16 @@ class NavigationScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(child: child),
-            CustomBottomBar(path: path),
+            Visibility(visible: visible, child: CustomBottomBar(path: path)),
           ],
         ),
       ),
     );
+  }
+
+  bool hasBottomBar() {
+    if (path.contains('quotes')) return false;
+
+    return true;
   }
 }

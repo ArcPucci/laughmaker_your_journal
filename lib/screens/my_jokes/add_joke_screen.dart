@@ -109,6 +109,7 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
                           icon: 'audio',
                           size: 44.r,
                           iconSize: 36.r,
+                          onTap: onShowAudioRecordBox,
                         ),
                         CustomIconButton(
                           icon: 'trash',
@@ -141,6 +142,17 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
   void onDone() {
     if (titleFocus.hasFocus) titleFocus.unfocus();
     if (contentFocus.hasFocus) contentFocus.unfocus();
+  }
+
+  void onShowAudioRecordBox() async {
+    await showCupertinoModalPopup(
+      context: context,
+      barrierDismissible: false,
+      barrierColor: Colors.transparent,
+      builder: (context) {
+        return const AudioRecorderSheet();
+      },
+    );
   }
 
   void onDeleteJoke() async {

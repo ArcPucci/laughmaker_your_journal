@@ -53,7 +53,7 @@ class SettingsDrawer extends StatelessWidget {
                         letterSpacing: -0.41,
                       ),
                     ),
-                    const CustomButton1(),
+                    const CustomButton1(text: "Buy Premium"),
                   ],
                 ),
               ],

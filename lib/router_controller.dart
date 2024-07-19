@@ -58,6 +58,38 @@ class RouterController {
               ),
             ],
           ),
+          GoRoute(
+            path: '/library',
+            pageBuilder: (context, state) {
+              return buildPageWithDefaultTransition(
+                context: context,
+                state: state,
+                child: const LibraryScreen(),
+              );
+            },
+            routes: [
+              GoRoute(
+                path: 'quotes',
+                pageBuilder: (context, state) {
+                  return buildPageWithDefaultTransition(
+                    context: context,
+                    state: state,
+                    child: const QuotesAndJokesScreen(),
+                  );
+                },
+              ),
+              GoRoute(
+                path: 'levels',
+                pageBuilder: (context, state) {
+                  return buildPageWithDefaultTransition(
+                    context: context,
+                    state: state,
+                    child: const LevelsScreen(),
+                  );
+                },
+              ),
+            ],
+          ),
         ],
       ),
     ],
