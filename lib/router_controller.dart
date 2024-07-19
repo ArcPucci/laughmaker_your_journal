@@ -23,6 +23,18 @@ class RouterController {
                 child: const MyJokesScreen(),
               );
             },
+            routes: [
+              GoRoute(
+                path: 'add',
+                pageBuilder: (context, state) {
+                  return buildPageWithDefaultTransition(
+                    context: context,
+                    state: state,
+                    child: const AddJokeScreen(),
+                  );
+                },
+              )
+            ],
           ),
           GoRoute(
             path: '/guides',

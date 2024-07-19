@@ -24,7 +24,10 @@ class CustomAppBar extends StatelessWidget {
         children: [
           CustomIconButton(
             icon: 'settings',
-            onTap: Scaffold.of(context).openDrawer,
+            onTap: () {
+              if(!Scaffold.of(context).hasDrawer) return;
+              Scaffold.of(context).openDrawer();
+            },
           ),
           Gap(16.w),
           Text(title, style: AppTextStyles.bold27),

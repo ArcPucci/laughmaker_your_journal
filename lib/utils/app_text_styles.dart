@@ -3,6 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
 
 class AppTextStyles {
+  static final TextStyle extraBold17 = TextStyle(
+    fontWeight: FontWeight.w800,
+    fontSize: 17.r,
+    height: 22 / 17,
+    color: AppTheme.black,
+  );
+
   static final TextStyle bold27 = TextStyle(
     fontWeight: FontWeight.w700,
     fontSize: 27.r,
@@ -56,6 +63,13 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     fontSize: 17.r,
     height: 20 / 17,
+    color: AppTheme.black,
+  );
+
+  static final TextStyle regular15 = TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 15.r,
+    height: 22 / 15,
     color: AppTheme.black,
   );
 }

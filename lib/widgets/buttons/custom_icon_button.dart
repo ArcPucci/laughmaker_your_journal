@@ -8,12 +8,13 @@ class CustomIconButton extends StatelessWidget {
     this.size,
     this.iconSize,
     this.onTap,
-    required this.icon,
+    required this.icon, this.borderRadius,
   });
 
   final double? size;
   final double? iconSize;
   final String icon;
+  final double? borderRadius;
   final VoidCallback? onTap;
 
   @override
@@ -25,7 +26,7 @@ class CustomIconButton extends StatelessWidget {
         height: size ?? 34.r,
         decoration: BoxDecoration(
           color: AppTheme.red,
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(borderRadius ?? 5),
         ),
         alignment: Alignment.center,
         child: Image.asset(

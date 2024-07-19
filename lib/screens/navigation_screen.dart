@@ -15,9 +15,12 @@ class NavigationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (path.contains('add')) return child;
+
     return Scaffold(
       backgroundColor: AppTheme.bg,
       drawer: const SettingsDrawer(),
+      drawerScrimColor: AppTheme.darkRed.withOpacity(0.62),
       body: SafeArea(
         bottom: false,
         child: Column(

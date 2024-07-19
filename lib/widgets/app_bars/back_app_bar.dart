@@ -5,9 +5,14 @@ import 'package:go_router/go_router.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
 
 class BackAppBar extends StatelessWidget {
-  const BackAppBar({super.key, required this.title});
+  const BackAppBar({
+    super.key,
+    required this.title,
+    this.laggingWidget,
+  });
 
   final String title;
+  final Widget? laggingWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,8 @@ class BackAppBar extends StatelessWidget {
               title,
               style: AppTextStyles.medium19.copyWith(color: AppTheme.red),
             ),
+            const Spacer(),
+            if (laggingWidget != null) laggingWidget!,
           ],
         ),
       ),
