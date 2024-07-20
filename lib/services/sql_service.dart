@@ -50,6 +50,7 @@ class SqlService {
       CREATE TABLE $recordingsTable (
         id $idType,
         joke_id $intType,
+        duration $intType,
         path $textType,
         created $intType
       )

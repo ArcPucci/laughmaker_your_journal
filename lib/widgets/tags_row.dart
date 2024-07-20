@@ -4,32 +4,52 @@ import 'package:gap/gap.dart';
 import 'package:laughmaker_your_journal/models/models.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
 import 'package:laughmaker_your_journal/widgets/dialogs/tags_dialog.dart';
+import 'package:laughmaker_your_journal/widgets/tag_widget.dart';
 
 class TagsRow extends StatelessWidget {
   const TagsRow({
     super.key,
     required this.tags,
-    required this.onSelect,
+    required this.onChanged,
   });
 
-  final List<String> tags;
-  final void Function(Tag) onSelect;
+  final List<Tag> tags;
+  final void Function(List<Tag>) onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
-          child: Row(),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Row(
+              children: List.generate(
+                tags.length,
+                (index) {
+                  final tag = tags[index];
+                  return Padding(
+                    padding: EdgeInsets.only(right: 16.w),
+                    child: TagWidget(
+                      tag: tag,
+                      selected: true,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
         ),
-        if (tags.isEmpty)
+        if (tags.isEmpty) ...[
           Text(
             "Add tag",
             style: AppTextStyles.medium19.copyWith(color: AppTheme.red2),
           ),
-        Gap(16.w),
+          Gap(16.w),
+        ],
         GestureDetector(
-          onTap: () => onMore(context),
+          onTap: () => onMore(context, tags),
           child: Image.asset(
             'assets/png/icons/more.png',
             width: 24.w,
@@ -41,7 +61,7 @@ class TagsRow extends StatelessWidget {
     );
   }
 
-  void onMore(BuildContext context) async {
+  void onMore(BuildContext context, List<Tag> tags) async {
     await showDialog(
       context: context,
       useSafeArea: true,
@@ -50,7 +70,7 @@ class TagsRow extends StatelessWidget {
         return Column(
           children: [
             Gap(128.h),
-            TagsDialog(),
+            TagsDialog(tags: tags, onChanged: onChanged),
           ],
         );
       },

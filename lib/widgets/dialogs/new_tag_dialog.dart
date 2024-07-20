@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:laughmaker_your_journal/providers/providers.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
-import 'package:laughmaker_your_journal/widgets/buttons/custom_button_2.dart';
-import 'package:laughmaker_your_journal/widgets/input/custom_input_2.dart';
+import 'package:laughmaker_your_journal/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class NewTagDialog extends StatefulWidget {
   const NewTagDialog({super.key});
@@ -30,9 +31,12 @@ class _NewTagDialogState extends State<NewTagDialog> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Cancel",
-              style: AppTextStyles.medium17.copyWith(color: AppTheme.red3),
+            GestureDetector(
+              onTap: Navigator.of(context).pop,
+              child: Text(
+                "Cancel",
+                style: AppTextStyles.medium17.copyWith(color: AppTheme.red3),
+              ),
             ),
             Text(
               "Name your tag",
@@ -52,6 +56,10 @@ class _NewTagDialogState extends State<NewTagDialog> {
   }
 
   void onAdd() {
+    if (controller.text.trim().isEmpty) return;
+
+    final value = Provider.of<TagsProvider>(context, listen: false);
+    value.onCreate(controller.text);
     Navigator.of(context).pop();
   }
 }

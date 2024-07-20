@@ -8,13 +8,13 @@ class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     super.key,
     required this.title,
-    this.onEdit,
+    this.onAdd,
     this.hasEdit = false,
   });
 
   final String title;
   final bool hasEdit;
-  final VoidCallback? onEdit;
+  final VoidCallback? onAdd;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class CustomAppBar extends StatelessWidget {
           Text(title, style: AppTextStyles.bold27),
           if (hasEdit) ...[
             const Spacer(),
-            CustomIconButton(icon: 'edit', onTap: onEdit),
+            CustomIconButton(icon: 'add', onTap: onAdd),
           ],
         ],
       ),

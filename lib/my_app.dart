@@ -42,6 +42,24 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         ChangeNotifierProvider(
+          create: (context) => TagsProvider(
+            tagsService: Provider.of(context, listen: false),
+            preferencesService: widget.preferencesService,
+          )..onInit(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => JokesProvider(
+            jokesService: Provider.of(context, listen: false),
+            recordingsService: Provider.of(context, listen: false),
+            router: routerController.router,
+          )..onInit(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RecordingsProvider(
+            recordingsService: Provider.of(context, listen: false),
+          ),
+        ),
+        ChangeNotifierProvider(
           create: (context) => GuidesProvider(
             router: routerController.router,
           ),

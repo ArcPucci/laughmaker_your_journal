@@ -1,33 +1,68 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:laughmaker_your_journal/models/models.dart';
+import 'package:laughmaker_your_journal/providers/providers.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
 import 'package:laughmaker_your_journal/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class AddJokeScreen extends StatefulWidget {
-  const AddJokeScreen({super.key});
+  const AddJokeScreen({super.key, this.edit = false});
+
+  final bool edit;
 
   @override
   State<AddJokeScreen> createState() => _AddJokeScreenState();
 }
 
 class _AddJokeScreenState extends State<AddJokeScreen> {
+  late JokesProvider jokesProvider;
+  late TagsProvider tagsProvider;
+  late RecordingsProvider recordingsProvider;
+
+  Joke _joke = Joke.empty();
+
   final titleController = TextEditingController();
   final titleFocus = FocusNode();
 
   final contentController = TextEditingController();
   final contentFocus = FocusNode();
 
+  List<Tag> _tags = [];
+
+  Timer? _debounce1;
+  Timer? _debounce2;
+
+  bool get visibleRecordings => recordingsProvider.recordings.isNotEmpty;
+
   @override
   void initState() {
     super.initState();
+    jokesProvider = Provider.of(context, listen: false);
+    tagsProvider = Provider.of(context, listen: false);
+    recordingsProvider = Provider.of(context, listen: false);
+
+    _joke = jokesProvider.joke;
+
+    recordingsProvider.loadRecordings(_joke.id);
+
     titleController.addListener(() => setState(() {}));
     titleFocus.addListener(() => setState(() {}));
 
     contentController.addListener(() => setState(() {}));
     contentFocus.addListener(() => setState(() {}));
+
+    if (!widget.edit) return;
+
+    titleController.text = _joke.title;
+    contentController.text = _joke.content;
+
+    _tags = tagsProvider.tags.where((e) => _joke.tags.contains(e.id)).toList();
   }
 
   bool get hasDone => titleFocus.hasFocus || contentFocus.hasFocus;
@@ -68,15 +103,15 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
                       ),
                     ),
                   ),
-                  Gap(24.h),
-                  TagsRow(
-                    tags: [],
-                    onSelect: (tag) {},
-                  ),
+                  if (tagsProvider.premium) ...[
+                    Gap(24.h),
+                    TagsRow(tags: _tags, onChanged: onChanged),
+                  ],
                   Gap(24.h),
                   CustomInput(
                     focusNode: titleFocus,
                     controller: titleController,
+                    onChanged: onChangedTitle,
                   ),
                   Gap(16.h),
                   Expanded(
@@ -84,6 +119,7 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
                       textStyle: AppTextStyles.regular15,
                       focusNode: contentFocus,
                       controller: contentController,
+                      onChanged: onChangedContent,
                     ),
                   ),
                 ],
@@ -98,11 +134,14 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomIconButton(
-                      icon: 'sound',
-                      size: 44.r,
-                      iconSize: 36.r,
-                      onTap: onShowHint,
+                    Visibility(
+                      visible: visibleRecordings,
+                      child: CustomIconButton(
+                        icon: 'sound',
+                        size: 44.r,
+                        iconSize: 36.r,
+                        onTap: onShowRecordingsList,
+                      ),
                     ),
                     Gap(16.h),
                     Row(
@@ -146,7 +185,6 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
     if (titleFocus.hasFocus || contentFocus.hasFocus) {
       if (titleFocus.hasFocus) titleFocus.unfocus();
       if (contentFocus.hasFocus) contentFocus.unfocus();
-      return;
     }
 
     context.pop();
@@ -161,10 +199,27 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
         return const AudioRecorderSheet();
       },
     );
+
+    setState(() {});
+    if (tagsProvider.hint || !visibleRecordings) return;
+
+    tagsProvider.onHint();
+    onShowHint();
+  }
+
+  void onShowRecordingsList() async {
+    await showCupertinoModalPopup(
+      context: context,
+      barrierDismissible: false,
+      barrierColor: Colors.transparent,
+      builder: (context) {
+        return RecordingsSheet(jokeId: jokesProvider.joke.id);
+      },
+    );
   }
 
   void onDeleteJoke() async {
-    await showCupertinoModalPopup(
+    final res = await showCupertinoModalPopup(
       context: context,
       barrierColor: AppTheme.darkRed.withOpacity(0.62),
       builder: (context) {
@@ -173,5 +228,34 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
         );
       },
     );
+    if (!(res ?? false)) return;
+    jokesProvider.onDelete();
+  }
+
+  void onChanged(List<Tag> tags) {
+    _tags = tags;
+    final list = _tags.map((e) => e.id).toList();
+    _joke = _joke.copyWith(tags: list);
+
+    jokesProvider.onUpdate(_joke);
+    setState(() {});
+  }
+
+  void onChangedTitle(String value) {
+    if (_debounce1?.isActive ?? false) _debounce1?.cancel();
+    _debounce1 = Timer(const Duration(milliseconds: 300), () {
+      _joke = _joke.copyWith(title: value);
+
+      jokesProvider.onUpdate(_joke);
+    });
+  }
+
+  void onChangedContent(String value) {
+    if (_debounce2?.isActive ?? false) _debounce2?.cancel();
+    _debounce2 = Timer(const Duration(milliseconds: 300), () {
+      _joke = _joke.copyWith(content: value);
+
+      jokesProvider.onUpdate(_joke);
+    });
   }
 }

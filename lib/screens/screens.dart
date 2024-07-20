@@ -8,3 +8,4 @@ export 'library/levels_screen.dart';
 export 'library/quiz_screen.dart';
 export 'library/congrats_screen.dart';
 export 'navigation_screen.dart';
+export 'premium_screen.dart';

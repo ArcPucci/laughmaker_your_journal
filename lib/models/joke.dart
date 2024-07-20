@@ -1,11 +1,21 @@
 import 'dart:convert';
 
+import 'package:laughmaker_your_journal/utils/utils.dart';
+
 class Joke {
   final int id;
   final String title;
   final String content;
   final List<int> tags;
   final DateTime created;
+
+  factory Joke.empty() => Joke(
+        id: -1,
+        title: '',
+        content: '',
+        tags: [],
+        created: DateTime.now(),
+      );
 
   Joke({
     required this.id,
@@ -56,17 +66,18 @@ class Joke {
       'title': this.title,
       'content': this.content,
       'tags': jsonEncode(this.tags),
-      'created': this.created,
+      'created': this.created.withZeroTime.microsecondsSinceEpoch,
     };
   }
 
   factory Joke.fromMap(Map<String, dynamic> map) {
-    final tags = jsonDecode(map['tags']);
+    final list = jsonDecode(map['tags'] as String) as List<dynamic>;
+    final list2 = list.map((e) => e as int).toList();
     return Joke(
       id: map['id'] as int,
       title: map['title'] as String,
       content: map['content'] as String,
-      tags: tags,
+      tags: list2,
       created: DateTime.fromMicrosecondsSinceEpoch(map['created'] as int),
     );
   }

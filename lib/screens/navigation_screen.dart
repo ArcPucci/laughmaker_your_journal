@@ -14,10 +14,10 @@ class NavigationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (path.contains('add')) return child;
-    if (path.contains('congrats')) return child;
-
     final visible = hasBottomBar();
+    if (path.contains('add')) return child;
+    if (path.contains('edit')) return child;
+    if (path.contains('congrats')) return child;
 
     return Scaffold(
       backgroundColor: AppTheme.bg,
@@ -28,7 +28,7 @@ class NavigationScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(child: child),
-            Visibility(visible: visible, child: CustomBottomBar(path: path)),
+            if (visible) CustomBottomBar(path: path),
           ],
         ),
       ),
@@ -36,8 +36,9 @@ class NavigationScreen extends StatelessWidget {
   }
 
   bool hasBottomBar() {
-    if (path.contains('quotes')) return false;
     if (path.contains('quiz')) return false;
+    if (path.contains('quotes')) return false;
+    if (path.contains('congrats')) return false;
 
     return true;
   }

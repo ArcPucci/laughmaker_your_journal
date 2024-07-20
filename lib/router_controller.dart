@@ -10,7 +10,10 @@ class RouterController {
           return buildPageWithDefaultTransition(
             context: context,
             state: state,
-            child: NavigationScreen(path: state.fullPath!, child: child),
+            child: NavigationScreen(
+              path: state.fullPath!,
+              child: child,
+            ),
           );
         },
         routes: [
@@ -33,7 +36,17 @@ class RouterController {
                     child: const AddJokeScreen(),
                   );
                 },
-              )
+              ),
+              GoRoute(
+                path: 'edit',
+                pageBuilder: (context, state) {
+                  return buildPageWithDefaultTransition(
+                    context: context,
+                    state: state,
+                    child: const AddJokeScreen(edit: true),
+                  );
+                },
+              ),
             ],
           ),
           GoRoute(

@@ -38,6 +38,13 @@ class AppTextStyles {
     color: AppTheme.white,
   );
 
+  static final TextStyle bold23 = TextStyle(
+    fontWeight: FontWeight.w700,
+    fontSize: 23.r,
+    height: 23 / 22,
+    color: AppTheme.black,
+  );
+
   static final TextStyle bold22 = TextStyle(
     fontWeight: FontWeight.w700,
     fontSize: 22.r,
@@ -57,6 +64,13 @@ class AppTextStyles {
     fontSize: 24.r,
     height: 26 / 24,
     color: AppTheme.red2,
+  );
+
+  static final TextStyle medium23 = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 23.r,
+    height: 23 / 22,
+    color: Colors.white,
   );
 
   static final TextStyle medium22 = TextStyle(

@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:laughmaker_your_journal/models/models.dart';
+import 'package:laughmaker_your_journal/providers/providers.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
 import 'package:laughmaker_your_journal/widgets/widgets.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:record/record.dart';
 import 'package:path/path.dart' as p;
 
@@ -17,6 +20,8 @@ class AudioRecorderSheet extends StatefulWidget {
 
 class _AudioRecorderSheetState extends State<AudioRecorderSheet> {
   late AudioRecorder audioRecord;
+  late JokesProvider jokesProvider;
+  late RecordingsProvider recordingsProvider;
 
   Timer? _timer;
   bool _recording = false;
@@ -24,6 +29,8 @@ class _AudioRecorderSheetState extends State<AudioRecorderSheet> {
 
   @override
   void initState() {
+    jokesProvider = Provider.of(context, listen: false);
+    recordingsProvider = Provider.of(context, listen: false);
     audioRecord = AudioRecorder();
     super.initState();
   }
@@ -90,7 +97,10 @@ class _AudioRecorderSheetState extends State<AudioRecorderSheet> {
     try {
       if (await audioRecord.hasPermission()) {
         final directory = await getApplicationCacheDirectory();
-        final filePath = p.join(directory.path, "recording.m4a");
+
+        final id = recordingsProvider.lastRecordingId;
+
+        final filePath = p.join(directory.path, "recording$id.m4a");
 
         _duration = 0;
         await audioRecord.start(const RecordConfig(), path: filePath);
@@ -114,6 +124,15 @@ class _AudioRecorderSheetState extends State<AudioRecorderSheet> {
   Future<void> onStopRecording() async {
     try {
       final path = await audioRecord.stop();
+      final recording = Recording(
+        id: 0,
+        jokeId: jokesProvider.joke.id,
+        path: path!,
+        created: DateTime.now(),
+        duration: _duration,
+      );
+
+      recordingsProvider.onCreate(recording);
 
       _duration = 0;
       _recording = false;

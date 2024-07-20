@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:laughmaker_your_journal/models/models.dart';
-import 'package:laughmaker_your_journal/utils/utils.dart';
+import 'package:laughmaker_your_journal/widgets/tag_widget.dart';
 
 class TagCard extends StatelessWidget {
   const TagCard({
@@ -9,8 +9,10 @@ class TagCard extends StatelessWidget {
     required this.tag,
     this.onTap,
     this.onDelete,
+    this.selected = false,
   });
 
+  final bool selected;
   final Tag tag;
   final VoidCallback? onTap;
   final VoidCallback? onDelete;
@@ -24,24 +26,7 @@ class TagCard extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.only(right: 9.w),
-            child: GestureDetector(
-              onTap: onTap,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(width: 1.sp, color: AppTheme.red2),
-                  color: Colors.transparent,
-                ),
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16.w,
-                  vertical: 5.5.h,
-                ),
-                child: Text(
-                  tag.tag,
-                  style: AppTextStyles.medium15.copyWith(color: AppTheme.red2),
-                ),
-              ),
-            ),
+            child: TagWidget(selected: selected, tag: tag, onTap: onTap),
           ),
           Positioned(
             top: 0,

@@ -20,8 +20,9 @@ class QuotesAndJokesScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 16.w),
             itemBuilder: (context, index) {
               final quote = quotes[index];
+              final last = index == quotes.length - 1;
               return Padding(
-                padding: EdgeInsets.only(bottom: 16.h),
+                padding: EdgeInsets.only(bottom: last ? 160.h : 16.h),
                 child: QuoteCard(quote: quote),
               );
             },

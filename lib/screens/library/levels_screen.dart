@@ -11,21 +11,21 @@ class LevelsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Gap(24.h),
-        BackAppBar(title: "Library"),
-        Gap(24.h),
-        SizedBox(
-          width: 361.w,
-          child: Text(
-            'Choose level',
-            style: AppTextStyles.medium19.copyWith(color: Colors.black),
-          ),
-        ),
-        Consumer<QuizProvider>(
-          builder: (BuildContext context, value, Widget? child) {
-            return Expanded(
+    return Consumer<QuizProvider>(
+      builder: (BuildContext context, value, Widget? child) {
+        return Column(
+          children: [
+            Gap(24.h),
+            BackAppBar(title: "Library"),
+            Gap(24.h),
+            SizedBox(
+              width: 361.w,
+              child: Text(
+                'Choose level',
+                style: AppTextStyles.medium19.copyWith(color: Colors.black),
+              ),
+            ),
+            Expanded(
               child: ListView.builder(
                 padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 16.w),
                 itemCount: levels.length,
@@ -37,10 +37,10 @@ class LevelsScreen extends StatelessWidget {
                   );
                 },
               ),
-            );
-          },
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

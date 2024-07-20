@@ -2,11 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:laughmaker_your_journal/providers/providers.dart';
-import 'package:laughmaker_your_journal/utils/guides.dart';
-import 'package:laughmaker_your_journal/widgets/card/guide_card.dart';
-import 'package:laughmaker_your_journal/widgets/app_bars/custom_app_bar.dart';
+import 'package:laughmaker_your_journal/utils/utils.dart';
+import 'package:laughmaker_your_journal/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class GuidesScreen extends StatelessWidget {

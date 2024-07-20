@@ -8,22 +8,39 @@ class AudioRecordingsService {
 
   AudioRecordingsService({required Database database}) : _database = database;
 
-  Future<void> onCreate(Joke joke) async {
-    final map = joke.toMap();
+  Future<void> onCreate(Recording recording) async {
+    final map = recording.toMap();
     map['id'] = null;
 
     await _database.insert(recordingsTable, map);
   }
 
-  Future<void> onDelete(Joke joke) async {
+  Future<void> onDelete(Recording recording) async {
     await _database.delete(
       recordingsTable,
       where: 'id = ?',
-      whereArgs: [joke.id],
+      whereArgs: [recording.id],
     );
   }
 
-  Future<List<Joke>> getJokes(int jokeId) async {
+  Future<void> onDeleteByJoke(int jokeId) async {
+    await _database.delete(
+      recordingsTable,
+      where: 'joke_id = ?',
+      whereArgs: [jokeId],
+    );
+  }
+
+  Future<List<Recording>> getAllRecordings() async {
+    final map = await _database.query(recordingsTable);
+
+    if (map.isEmpty) return [];
+
+    final list = map.map(Recording.fromMap).toList();
+    return list;
+  }
+
+  Future<List<Recording>> getRecordings(int jokeId) async {
     final map = await _database.query(
       recordingsTable,
       where: 'joke_id = ?',
@@ -32,7 +49,7 @@ class AudioRecordingsService {
 
     if (map.isEmpty) return [];
 
-    final list = map.map(Joke.fromMap).toList();
+    final list = map.map(Recording.fromMap).toList();
     return list;
   }
 }

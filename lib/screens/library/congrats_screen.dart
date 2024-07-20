@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:laughmaker_your_journal/providers/providers.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
-import 'package:laughmaker_your_journal/widgets/buttons/custom_button_2.dart';
+import 'package:laughmaker_your_journal/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class CongratsScreen extends StatelessWidget {
@@ -19,12 +19,13 @@ class CongratsScreen extends StatelessWidget {
             child: Image.asset('assets/png/lights.png', fit: BoxFit.cover),
           ),
           Positioned.fill(
-            child: SafeArea(
-              child: Consumer<QuizProvider>(
-                builder: (BuildContext context, value, Widget? child) {
-                  return Column(
+            child: Consumer<QuizProvider>(
+              builder: (BuildContext context, value, Widget? child) {
+                final overlay = MediaQuery.of(context).padding;
+                return SafeArea(
+                  child: Column(
                     children: [
-                      Gap(97.h),
+                      Gap(97.h - overlay.bottom),
                       Text(
                         getTitle(value.score),
                         style: AppTextStyles.pcRegular.copyWith(
@@ -38,28 +39,33 @@ class CongratsScreen extends StatelessWidget {
                         height: 265.h,
                       ),
                       Gap(31.h),
-                      Text(
-                        "Your score",
-                        style: AppTextStyles.bold27.copyWith(
-                          color: Colors.white,
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              "Your score",
+                              style: AppTextStyles.bold27.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Gap(16.h),
+                            Text(
+                              "${value.score}/${value.total}",
+                              style: AppTextStyles.bold28.copyWith(
+                                color: AppTheme.white,
+                              ),
+                            ),
+                            Gap(16.h),
+                            Text(
+                              getText(value.score),
+                              textAlign: TextAlign.center,
+                              style: AppTextStyles.regular17.copyWith(
+                                color: AppTheme.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Gap(16.h),
-                      Text(
-                        "${value.score}/${value.total}",
-                        style: AppTextStyles.bold28.copyWith(
-                          color: AppTheme.white,
-                        ),
-                      ),
-                      Gap(16.h),
-                      Text(
-                        getText(value.score),
-                        textAlign: TextAlign.center,
-                        style: AppTextStyles.regular17.copyWith(
-                          color: AppTheme.white,
-                        ),
-                      ),
-                      Spacer(),
                       CustomButton2(
                         text: "Go to Library",
                         color: AppTheme.white,
@@ -68,9 +74,9 @@ class CongratsScreen extends StatelessWidget {
                       ),
                       Gap(24.h),
                     ],
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
           ),
         ],

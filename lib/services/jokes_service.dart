@@ -8,18 +8,28 @@ class JokesService {
 
   JokesService({required Database database}) : _database = database;
 
-  Future<void> onCreate(Joke joke) async {
+  Future<Joke> onCreate(Joke joke) async {
     final map = joke.toMap();
     map['id'] = null;
 
-    await _database.insert(jokesTable, map);
+    final id = await _database.insert(jokesTable, map);
+    return joke.copyWith(id: id);
   }
 
-  Future<void> onUpdate(Joke joke) async {
+  Future<Joke> onUpdate(Joke joke) async {
     final map = joke.toMap();
-    await _database.update(
+    final id = await _database.update(
       jokesTable,
       map,
+      where: 'id = ?',
+      whereArgs: [joke.id],
+    );
+    return joke.copyWith(id: id);
+  }
+
+  Future<void> onDelete(Joke joke) async {
+    await _database.delete(
+      jokesTable,
       where: 'id = ?',
       whereArgs: [joke.id],
     );
@@ -32,4 +42,6 @@ class JokesService {
     final list = map.map(Joke.fromMap).toList();
     return list;
   }
+
+
 }

@@ -2,22 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:laughmaker_your_journal/providers/providers.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
 import 'package:laughmaker_your_journal/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class MyJokesScreen extends StatelessWidget {
   const MyJokesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Gap(24.h),
-        const CustomAppBar(title: 'My Jokes', hasEdit: true),
-        Expanded(
-          child: _buildEmptyBody(context),
-        ),
-      ],
+    return Consumer2<JokesProvider, TagsProvider>(
+      builder: (BuildContext context, value, value2, Widget? child) {
+        return Column(
+          children: [
+            Gap(24.h),
+            CustomAppBar(
+              title: 'My Jokes',
+              hasEdit: true,
+              onAdd: value.onCreate,
+            ),
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
+                itemCount: value.jokes.length,
+                itemBuilder: (context, index) {
+                  final joke = value.jokes[index];
+                  final tags = value2.getTags(joke.tags);
+                  return JokeCard(
+                    tags: tags,
+                    onTap: () => value.onSelect(joke),
+                  );
+                },
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -26,7 +47,7 @@ class MyJokesScreen extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 16.h),
       child: Column(
         children: [
-          const JokesListCard(title: 'Today'),
+          JokesListCard(title: 'Today'),
           Gap(20.h),
           const JokesListCard(title: 'Last 7 days'),
           Gap(20.h),

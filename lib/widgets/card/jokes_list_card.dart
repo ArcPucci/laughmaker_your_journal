@@ -29,7 +29,7 @@ class JokesListCard extends StatelessWidget {
               children: List.generate(
                 3,
                 (index) {
-                  return const JokeCard();
+                  return const JokeCard(tags: []);
                 },
               ),
             ),
