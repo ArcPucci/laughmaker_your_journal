@@ -9,46 +9,44 @@ class QuizBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => context.go('/library/levels'),
-      child: Container(
-        width: 361.w,
-        height: 445.h,
-        decoration: BoxDecoration(
-          color: AppTheme.red2,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Positioned(
-              top: 24.h,
-              child: Image.asset(
-                'assets/png/bg3.png',
-                width: 347.w,
-                height: 415.h,
-              ),
+    return Container(
+      width: 361.w,
+      height: 445.h,
+      decoration: BoxDecoration(
+        color: AppTheme.red2,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Positioned(
+            top: 24.h,
+            child: Image.asset(
+              'assets/png/bg3.png',
+              width: 347.w,
+              height: 415.h,
             ),
-            Positioned(
-              top: 24.h,
-              right: 73.w,
-              left: 73.w,
-              child: Image.asset(
-                'assets/png/quiz.png',
-                width: 215.w,
-                height: 56.h,
-              ),
+          ),
+          Positioned(
+            top: 24.h,
+            right: 73.w,
+            left: 73.w,
+            child: Image.asset(
+              'assets/png/quiz.png',
+              width: 215.w,
+              height: 56.h,
             ),
-            Positioned(
-              right: 16.w,
-              bottom: 16.h,
-              child: CustomButton1(
-                text: 'Play now',
-                textStyle: AppTextStyles.medium17.copyWith(color: AppTheme.red),
-              ),
+          ),
+          Positioned(
+            right: 16.w,
+            bottom: 16.h,
+            child: CustomButton1(
+              text: 'Play now',
+              textStyle: AppTextStyles.medium17.copyWith(color: AppTheme.red),
+              onTap: () => context.go('/library/levels'),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

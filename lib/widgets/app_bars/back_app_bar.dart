@@ -9,9 +9,11 @@ class BackAppBar extends StatelessWidget {
     super.key,
     required this.title,
     this.laggingWidget,
+    this.onBack,
   });
 
   final String title;
+  final VoidCallback? onBack;
   final Widget? laggingWidget;
 
   @override
@@ -19,7 +21,7 @@ class BackAppBar extends StatelessWidget {
     return SizedBox(
       width: 361.w,
       child: GestureDetector(
-        onTap: context.pop,
+        onTap: onBack ?? context.pop,
         child: Row(
           children: [
             Image.asset(

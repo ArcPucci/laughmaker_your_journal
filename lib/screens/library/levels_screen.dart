@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:laughmaker_your_journal/providers/providers.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
 import 'package:laughmaker_your_journal/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class LevelsScreen extends StatelessWidget {
   const LevelsScreen({super.key});
@@ -21,18 +23,22 @@ class LevelsScreen extends StatelessWidget {
             style: AppTextStyles.medium19.copyWith(color: Colors.black),
           ),
         ),
-        Expanded(
-          child: ListView.builder(
-            padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 16.w),
-            itemCount: levels.length,
-            itemBuilder: (context, index) {
-              final level = levels[index];
-              return Padding(
-                padding: EdgeInsets.only(bottom: 24.h),
-                child: LevelCard(level: level),
-              );
-            },
-          ),
+        Consumer<QuizProvider>(
+          builder: (BuildContext context, value, Widget? child) {
+            return Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 16.w),
+                itemCount: levels.length,
+                itemBuilder: (context, index) {
+                  final level = levels[index];
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 24.h),
+                    child: LevelCard(level: level, onTap: value.onStart),
+                  );
+                },
+              ),
+            );
+          },
         ),
       ],
     );

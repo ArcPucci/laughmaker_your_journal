@@ -87,6 +87,28 @@ class RouterController {
                     child: const LevelsScreen(),
                   );
                 },
+                routes: [
+                  GoRoute(
+                    path: 'quiz',
+                    pageBuilder: (context, state) {
+                      return buildPageWithDefaultTransition(
+                        context: context,
+                        state: state,
+                        child: const QuizScreen(),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: 'congrats',
+                    pageBuilder: (context, state) {
+                      return buildPageWithDefaultTransition(
+                        context: context,
+                        state: state,
+                        child: const CongratsScreen(),
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),

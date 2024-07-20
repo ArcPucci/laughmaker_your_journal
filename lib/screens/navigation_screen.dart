@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
-import 'package:laughmaker_your_journal/widgets/settings_drawer.dart';
 import 'package:laughmaker_your_journal/widgets/widgets.dart';
 
 class NavigationScreen extends StatelessWidget {
@@ -16,6 +15,7 @@ class NavigationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (path.contains('add')) return child;
+    if (path.contains('congrats')) return child;
 
     final visible = hasBottomBar();
 
@@ -37,6 +37,7 @@ class NavigationScreen extends StatelessWidget {
 
   bool hasBottomBar() {
     if (path.contains('quotes')) return false;
+    if (path.contains('quiz')) return false;
 
     return true;
   }

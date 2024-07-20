@@ -5,4 +5,6 @@ export 'guide/guide_screen.dart';
 export 'library/library_screen.dart';
 export 'library/quotes_and_jokes_screen.dart';
 export 'library/levels_screen.dart';
+export 'library/quiz_screen.dart';
+export 'library/congrats_screen.dart';
 export 'navigation_screen.dart';

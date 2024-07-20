@@ -22,6 +22,11 @@ class _MyAppState extends State<MyApp> {
             router: routerController.router,
           ),
         ),
+        ChangeNotifierProvider(
+          create: (context) => QuizProvider(
+            router: routerController.router,
+          ),
+        ),
       ],
       child: MaterialApp.router(
         theme: ThemeData(fontFamily: 'Onest'),
