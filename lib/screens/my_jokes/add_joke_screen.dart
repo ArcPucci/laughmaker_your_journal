@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
 import 'package:laughmaker_your_journal/widgets/widgets.dart';
 
@@ -57,18 +58,20 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
                   Gap(24.h),
                   BackAppBar(
                     title: "My Jokes",
-                    laggingWidget: Visibility(
-                      visible: hasDone,
-                      child: GestureDetector(
-                        onTap: onDone,
-                        child: Text(
-                          "Done",
-                          style: AppTextStyles.medium19.copyWith(
-                            color: AppTheme.red,
-                          ),
+                    laggingWidget: GestureDetector(
+                      onTap: onDone,
+                      child: Text(
+                        "Done",
+                        style: AppTextStyles.medium19.copyWith(
+                          color: AppTheme.red,
                         ),
                       ),
                     ),
+                  ),
+                  Gap(24.h),
+                  TagsRow(
+                    tags: [],
+                    onSelect: (tag) {},
                   ),
                   Gap(24.h),
                   CustomInput(
@@ -140,8 +143,13 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
   }
 
   void onDone() {
-    if (titleFocus.hasFocus) titleFocus.unfocus();
-    if (contentFocus.hasFocus) contentFocus.unfocus();
+    if (titleFocus.hasFocus || contentFocus.hasFocus) {
+      if (titleFocus.hasFocus) titleFocus.unfocus();
+      if (contentFocus.hasFocus) contentFocus.unfocus();
+      return;
+    }
+
+    context.pop();
   }
 
   void onShowAudioRecordBox() async {
