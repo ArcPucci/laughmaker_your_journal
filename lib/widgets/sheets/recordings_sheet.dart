@@ -79,7 +79,7 @@ class _RecordingsSheetState extends State<RecordingsSheet> {
                           index: index,
                           playing: playing == index,
                           recording: recording,
-                          onDelete: () => onDelete(recording),
+                          onDelete: () => onDelete(index, recording),
                           onPlay: () => onPlay(index, recording),
                         ),
                       );
@@ -115,14 +115,13 @@ class _RecordingsSheetState extends State<RecordingsSheet> {
     setState(() {});
   }
 
-  void onDelete(Recording recording) async {
+  void onDelete(int index, Recording recording) async {
     final delete = await showCupertinoModalPopup(
       context: context,
       barrierColor: AppTheme.darkRed.withOpacity(0.62),
       builder: (context) {
         return DeleteSheet(
-          title:
-              "Are you sure you want to\ndelete Audio recording ${recording.id}?",
+          title: "Are you sure you want to\ndelete Audio recording $index?",
         );
       },
     );

@@ -19,6 +19,13 @@ class RecordingsProvider extends ChangeNotifier {
 
   int _jokeId = -1;
 
+  void onInit() async {
+    final list = await _recordingsService.getRecordings(-1);
+    print(list.length);
+
+    await _recordingsService.onDeleteByJoke(-1);
+  }
+
   void onCreate(Recording recording) async {
     await _getLastId();
     await _recordingsService.onCreate(recording);

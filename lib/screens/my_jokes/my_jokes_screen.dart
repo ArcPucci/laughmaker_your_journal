@@ -19,7 +19,7 @@ class MyJokesScreen extends StatelessWidget {
             CustomAppBar(
               title: 'My Jokes',
               hasEdit: true,
-              onAdd: value.onCreate,
+              onAdd: value.onAdd,
             ),
             Expanded(
               child: value.empty ? _buildEmptyBody(value) : _buildList(value),
@@ -74,7 +74,7 @@ class MyJokesScreen extends StatelessWidget {
           size: 68.r,
           iconSize: 56.r,
           borderRadius: 10,
-          onTap: value.onCreate,
+          onTap: value.onAdd,
         ),
         Gap(8.h),
         Text("You don't have records.", style: AppTextStyles.regular17),

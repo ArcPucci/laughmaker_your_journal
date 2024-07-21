@@ -27,9 +27,11 @@ class BoldParagraph extends Paragraph {
 }
 
 class MixedParagraph extends Paragraph {
+  final String? id;
   final List<Paragraph> list;
 
   MixedParagraph({
+    this.id,
     super.content = '',
     required this.list,
   });

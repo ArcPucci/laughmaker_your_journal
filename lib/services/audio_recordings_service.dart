@@ -15,6 +15,15 @@ class AudioRecordingsService {
     await _database.insert(recordingsTable, map);
   }
 
+  Future<void> onUpdate(Recording recording) async {
+    await _database.update(
+      recordingsTable,
+      recording.toMap(),
+      where: 'id = ?',
+      whereArgs: [recording.id],
+    );
+  }
+
   Future<void> onDelete(Recording recording) async {
     await _database.delete(
       recordingsTable,

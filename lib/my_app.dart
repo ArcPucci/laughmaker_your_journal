@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (context) => RecordingsProvider(
             recordingsService: Provider.of(context, listen: false),
-          ),
+          )..onInit(),
         ),
         ChangeNotifierProvider(
           create: (context) => GuidesProvider(

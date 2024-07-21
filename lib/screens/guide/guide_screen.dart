@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:laughmaker_your_journal/models/guide.dart';
@@ -64,30 +66,44 @@ class GuideScreen extends StatelessWidget {
                             }
 
                             if (paragraph is MixedParagraph) {
-                              return RichText(
-                                text: TextSpan(
-                                  children: List.generate(
-                                    paragraph.list.length,
-                                    (index) {
-                                      final temp = paragraph.list[index];
+                              return Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (paragraph.id != null)
+                                    Text(
+                                      paragraph.id! + '. ',
+                                      style: AppTextStyles.regular17.copyWith(
+                                        height: 1.368,
+                                      ),
+                                    ),
+                                  Expanded(
+                                    child: RichText(
+                                      text: TextSpan(
+                                        children: List.generate(
+                                          paragraph.list.length,
+                                          (index) {
+                                            final temp = paragraph.list[index];
 
-                                      if (temp is BoldParagraph) {
-                                        return TextSpan(
-                                          text: temp.content,
-                                          style:
-                                              AppTextStyles.medium17.copyWith(
-                                            color: AppTheme.black,
-                                          ),
-                                        );
-                                      }
+                                            if (temp is BoldParagraph) {
+                                              return TextSpan(
+                                                text: temp.content,
+                                                style: AppTextStyles.medium17
+                                                    .copyWith(
+                                                  color: AppTheme.black,
+                                                ),
+                                              );
+                                            }
 
-                                      return TextSpan(
-                                        text: temp.content,
-                                        style: AppTextStyles.regular17,
-                                      );
-                                    },
+                                            return TextSpan(
+                                              text: temp.content,
+                                              style: AppTextStyles.regular17,
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                ],
                               );
                             }
 

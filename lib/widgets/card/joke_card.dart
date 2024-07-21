@@ -44,17 +44,20 @@ class JokeCard extends StatelessWidget {
                 Gap(4.h),
                 Text(
                   joke.title,
+                  maxLines: 1,
                   style: AppTextStyles.medium15,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Gap(4.h),
                 Text(
                   joke.content,
+                  maxLines: 1,
                   style: AppTextStyles.medium13,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Gap(4.h),
                 SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
                   padding: EdgeInsets.only(bottom: 4.h),
                   child: Row(
                     children: List.generate(

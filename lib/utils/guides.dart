@@ -1,3 +1,4 @@
+import 'package:laughmaker_your_journal/models/guide.dart';
 import 'package:laughmaker_your_journal/models/models.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
 
@@ -8,7 +9,7 @@ final List<Guide> guides = [
     description: "When you break it down, it turns out most one-line jokes use one of the following techniques.",
     color: AppTheme.red,
     paragraphs: [
-      Paragraph(content: "One-liners (a.k.a. Monologue Jokes) are an important part of our lives. The average person laughs 38.2 times a day because of one-liner jokes. It's true - it's in Wikipedia. I wrote it there myself.\nOne-liners have grown more and more popular in recent decades. They've replaced our grandparents' humor, based on long tales that were basically repeated the same joke:"),
+      Paragraph(content: "One-liners (a.k.a. Monologue Jokes) are an important part of our lives. The average person laughs 38.2 times a day because of one-liner jokes. It's true - it's in Wikipedia. I wrote it there myself.\n\nOne-liners have grown more and more popular in recent decades. They've replaced our grandparents' humor, based on long tales that were basically repeated the same joke:"),
       BoldParagraph(content: "Three people from three different ethnic groups walk into a bar. The first two say something smart, and the third says something that embarrasses his entire ethnic group. (Bill Bailey)"),
       Paragraph(content: "Thankfully they took the secret of how to write these jokes to their grave. R.I.P. lame long jokes! Hello short one-liners, tailored for a generation with attention deficit disorder and zero tolerance. Allow me to demonstrate it, but I need to warn you -"),
       BoldParagraph(content: "analyzing humor is like dissecting a frog. Few people are interested and the frog dies of it. (E.B. White)"),
@@ -18,9 +19,114 @@ final List<Guide> guides = [
         list: [
           Paragraph(content: "As you can see there are 2 parts for the one liner. The "),
           BoldParagraph(content: "SET-UP"),
-          Paragraph(content: ", in that case - The hardest part about my grandmother's death was - sets your mind in one very clear direction. You are \"set up\" to hear all kinds of expected endings to that sentence - the usual platitudes regarding the difficulty of losing a beloved one. But instead, you get the PUNCHLINE, a surprising twist you weren't expecting, which changes the meaning of the entire sentence. In this case - making it seem like an accident."),
+          Paragraph(content: ", in that case - The hardest part about my grandmother's death was - sets your mind in one very clear direction. You are \"set up\" to hear all kinds of expected endings to that sentence - the usual platitudes regarding the difficulty of losing a beloved one. But instead, you get the PUNCHLINE, a surprising twist you weren't expecting, which changes the meaning of the entire sentence. In this case - making it seem like an accident.\n"),
         ],
       ),
+      MixedParagraph(
+        list: [
+          Paragraph(content: "When writing One-Liners there are 2 basic ground rules. The first is the length of the joke - the shorter the distance between the setup and the punch line, the funnier it is. The second is that the punch line will "),
+          BoldParagraph(content: "always"),
+          Paragraph(content: " be at the end.\n"),
+        ],
+      ),
+      Paragraph(content: "Now that we have the structure and the two simple rules, the question remains- what makes a joke funny? When you break it down, it turns out most jokes use one of the following techniques:"),
+      MixedParagraph(
+        list: [
+          BoldParagraph(content: "1) Verbal Jokes: Pun\n\n"),
+          Paragraph(content: ": One word, two meanings. Our brain hears the first part of the sentence and assumes meaning A, but then the punch-line twists it, and it turns out to be meaning B.It can be the word itself or its context in the sentence -For example:\n\n"),
+          BoldParagraph(content: "Throwing acid is wrong, in some people's eyes. (Jimmy Carr)\n\n"),
+          Paragraph(content: "Or:\n\n"),
+          BoldParagraph(content: "I once shot an elephant in my pajamas; how he got in my pajamas I'll never know. (Graucho Marx)\n"),
+        ],
+      ),
+      MixedParagraph(
+        list: [
+          BoldParagraph(content: "2) Verbal Jokes: Bun"),
+          Paragraph(content: " (it's like a pun but not 100%): A Very tricky technique where the punch sounds a bit like the word expected from the setup, but not really. It's a very risky technique, as you may easily find yourself with a childish jest instead of a solid funny joke. The end result being a cough, instead of a laugh (that's a good example for a bad use of that technique)."),
+        ],
+      ),
+      Paragraph(content: "For example:"),
+      BoldParagraph(content: "Congratulations to Dolly Parton. She received an honorary degree from the University of Tennessee. It's a Ph.-Double-D. (Jay Leno)"),
+      Paragraph(content: "Or:"),
+      BoldParagraph(content: "In the year 3000 YouTube, Twitter & Facebook will merge into one super time wasting website called YouTwitFace. (Conan O'brien)"),
+      MixedParagraph(
+        list: [
+          Paragraph(content: "3) "),
+          BoldParagraph(content: "Reverse Humor"),
+          Paragraph(content: ": The Set up makes the listeners expect one thing and the punch-line surprises them with the exact opposite. For example:\n"),
+        ],
+      ),
+      BoldParagraph(content: "A mysterious man was knocking all night long on Paris Hilton's door. Come morning, she was fed up with it, so she let him out. (David Letterman)"),
+      MixedParagraph(
+        list: [
+          Paragraph(content: "4) "),
+          BoldParagraph(content: "Situation Humor"),
+          Paragraph(content: ": In those kinds of jokes, it's crucial that the setup be as vivid as possible in order to help listeners picture the situation in their heads. Now that the necessary assumptions were made, the punch line adds an unexpected factor that changes the picture completely. The humor here is a result of the dissonance between the assumptions we made about the outcome of the situation- and the surprise generated by a completely different and usually absurd outcome.\nFor example:\n"),
+        ],
+      ),
+      BoldParagraph(content: "The first ever spices festival opened this week. The festival ended earlier than expected when someone switched on the ceiling fan. (Omri Marcus)"),
+      Paragraph(content: "Or:"),
+      BoldParagraph(content: "I once saw my grandparents having sex, and that's why I don't eat raisins. (Zach Galifianakis)"),
+      MixedParagraph(
+        list: [
+          Paragraph(content: "5) "),
+          BoldParagraph(content: "Humor based on Stereotype\n"),
+        ],
+      ),
+      Paragraph(content: "- Stereotypes are one of the techniques our brain uses to simplify the complicated reality around us. One of the most common ways of writing jokes is to treat those stereotypes as solid truth. Sometimes stereotypes can be offensive, but since all comedy writers are left wing Jews with glasses, who love money and porn - we're entitled.For example:"),
+      BoldParagraph(content: "Two volunteer groups in Arizona have set up cameras on the Mexican border, so that people with fast internet connections can sign up to monitor the cameras remotely and report illegal immigrants. Said one illegal immigrant, 'Hey, free camera! (Alex Baze, SNL)"),
+      Paragraph(content: "Or:"),
+      BoldParagraph(content: "A new survey claims that in 67% of households - the woman is in charge of the cleaning. The rest of the houses are dirty. (Avi Ettinger & Asaf Beiser)"),
+      MixedParagraph(
+        list: [
+          Paragraph(content: "6) "),
+          BoldParagraph(content: "Humor based on Observations"),
+          Paragraph(content: " - Humor based on common experience rather than common knowledge . It refers to the many things in life that are not written anywhere and most of them are so obvious that we don't even talk about them. We know them because we live in western society. It can be a can of juice that's hard to open, or the fact that with a certain brand you always get stuck with an annoying aftertaste. The humor is generated here by saying that \"secret\" out loud.\nFor example:\n"),
+        ],
+      ),
+      BoldParagraph(content: "Ikea's founder said in an interview that he drives a 15 year old car. He bought it 15 years ago, but finished assembling it only this week. (Avi Ettinger & Asaf Beiser)"),
+      Paragraph(content: "Or:"),
+      BoldParagraph(content: "You know 'that look' women get when they want sex? Me neither (Steve Martin)"),
+      MixedParagraph(
+        list: [
+          Paragraph(content: "7) "),
+          BoldParagraph(content: "Humor based on a Common Everyday Problem"),
+          Paragraph(content: " - Honestly, It's quite similar to the previous one, but the laughter comes from a sublimation of our anger or even rage into humor. It's most common in married life, where one has to deal with ongoing, regularly occurring, annoying actions by his/her spouse without losing their mind. To shout and argue would be one option - to laugh at it, can be much easier. Especially on your back, because you won't sleep on the couch afterwards.\nFor example:\n\n"),
+        ],
+      ),
+      BoldParagraph(content: "A new study shows that drinking coffee can increase a women's sexual urge. Researchers warn however that the pillow talk will last all night long. (Jimmy Kimmel)"),
+      Paragraph(content: "Or from a totally different field:"),
+      BoldParagraph(content: "A hotel will be opened in UK's largest shopping mall. The main target audience - people who failed to find their car in the parking lot. (Omri Marcus)"),
+      MixedParagraph(
+        list: [
+          Paragraph(content: "8) "),
+          BoldParagraph(content: "Humor based on extreme approach\n"),
+        ],
+      ),
+      Paragraph(content: "- Laughter can also deal with our deepest fears. If we can't control what scares us, the second best thing to do, is to laugh about it. The result is a great feeling of power - a small victory over fear. Come on - let's say the worst imaginable thing, and enjoy the one second our Id goes wild before our better judgment kicks in. For example here is a one-liner about the most common fear - death:"),
+      BoldParagraph(content: "I want to die peacefully in my sleep like my grandfather... Not screaming and yelling like the passengers in his car(Bob Monkhouse)"),
+      Paragraph(content: "Or another one about pedophiles:"),
+      BoldParagraph(content: "I met an amazing girl on the internet. Smart, sexy, uninhibited...of course it turned out to be a twelve-year-old paraplegic boy. I'll be honest - the sex was disappointing. (Jimmy Carr)"),
+      MixedParagraph(
+        list: [
+          Paragraph(content: "9) "),
+          BoldParagraph(content: "Humor based on Surrealism"),
+          Paragraph(content: "  - Surrealism can be quite a challenge. These jokes play by their own rules. You run the risk that people who weren't in the room when the joke was written won't get it. In order to understand these jokes you sometimes need to be in college, with a bag of weed, otherwise it might sound like a mistake rather than a joke.\n"),
+        ],
+      ),
+      BoldParagraph(content: "Guns don't kill people, people kill people, and monkeys do too (if they have a gun).(Eddie Izzard)"),
+      Paragraph(content: "Or:"),
+      BoldParagraph(content: "According to Freud, what comes between fear and sex?Funf (from Jimmy Carr's book Only Joking)"),
+      MixedParagraph(
+        list: [
+          Paragraph(content: "10) "),
+          BoldParagraph(content: "Political Humor"),
+          Paragraph(content: " - It's not necessarily that the others lack in meaning, but in a one-liner with a message the laughter is a side effect rather than the main objective. This is often when we use the laugh track to signal to the audience where the punch line is. Still - sometimes humor is the spoonful of sugar that helps the medicine go down.\nFor example:\n"),
+        ],
+      ),
+      BoldParagraph(content: "If the evens of September 11th have proven anything, it's that the terrorists can attack us, but they can't take away what makes us American - our freedom, our liberty, our civil rights. No, only Attorney General John Ashcroft can do that. (Jon Stewart)"),
+      Paragraph(content: "So the next time your favorite late night show is on, try to classify the jokes. For a short time, it might look easy and something that anyone can do. However, you should keep in mind that each joke involves hours of hard work. Scanning newspapers, writing and rewriting, passionately arguing that a mango is funnier fruit than a pineapple - and eventually it will be less than 10 seconds on the air, including the laughter of the audience. Still, we love it, and it's better than being a waiter."),
+      Paragraph(content: "Don't forget: humor is the best medicine, though if you have cancer, you'd better go for chemotherapy."),
     ],
   ),
   Guide(
@@ -165,30 +271,35 @@ final List<Guide> guides = [
     paragraphs: [
       BoldParagraph(content: "Key Elements of a One-Liner Joke"),
       MixedParagraph(
+        id: '1',
         list: [
           BoldParagraph(content: "Setup and Punchline:"),
           Paragraph(content: " Even in a one-liner, there’s often a setup that creates a context and a punchline that delivers the surprise or twist.\n"),
         ],
       ),
       MixedParagraph(
+        id: '2',
         list: [
           BoldParagraph(content: "Brevity:"),
           Paragraph(content: " Keep it short and to the point. The humor should be immediate.\n"),
         ],
       ),
       MixedParagraph(
+        id: '3',
         list: [
           BoldParagraph(content: "Surprise or Twist:"),
           Paragraph(content: " The punchline should have an unexpected element that catches the audience off guard.\n"),
         ],
       ),
       MixedParagraph(
+        id: '4',
         list: [
           BoldParagraph(content: "Wordplay:"),
           Paragraph(content: " Puns, double entendres, and clever word usage often enhance the humor.\n"),
         ],
       ),
       MixedParagraph(
+        id: '5',
         list: [
           BoldParagraph(content: "Relatability: "),
           Paragraph(content: " The joke should resonate with a wide audience or tap into universal experiences or knowledge.\n\n"),
@@ -196,30 +307,35 @@ final List<Guide> guides = [
       ),
       BoldParagraph(content: "Steps to Write a One-Liner Joke"),
       MixedParagraph(
+        id: '1',
         list: [
           BoldParagraph(content: "Identify a Topic or Theme:"),
           Paragraph(content: " Start with a subject you find funny or something current and relatable. For example, technology, everyday life, relationships, etc.\nExample: Technology\n"),
         ],
       ),
       MixedParagraph(
+        id: '2',
         list: [
           BoldParagraph(content: "Brainstorm Associations and Ideas:"),
           Paragraph(content: " Jot down words, phrases, and ideas related to your topic. Think about common situations or clichés you can twist.\nExample: Phone, battery, charger, social media, notifications\n"),
         ],
       ),
       MixedParagraph(
+        id: '3',
         list: [
           BoldParagraph(content: "Create a Setup:"),
           Paragraph(content: " Develop a statement that leads into the joke. This doesn’t need to be long, just enough to set the context.\nExample: “My phone's battery”\n"),
         ],
       ),
       MixedParagraph(
+        id: '4',
         list: [
           BoldParagraph(content: "Think of a Twist or Punchline:"),
           Paragraph(content: " Add an unexpected twist or clever observation that subverts the setup.\nExample: “…is like my social life—it drains faster than I can recharge.”\n"),
         ],
       ),
       MixedParagraph(
+        id: '5',
         list: [
           BoldParagraph(content: "Combine and Refine:"),
           Paragraph(content: " Put the setup and punchline together, then refine it to be as concise as possible.\nExample: “My phone’s battery is like my social life—it drains faster than I can recharge.”\n\n"),
@@ -227,18 +343,21 @@ final List<Guide> guides = [
       ),
       BoldParagraph(content: "Examples of One-Liner Jokes"),
       MixedParagraph(
+        id: '1',
         list: [
           BoldParagraph(content: "Classic Example:"),
           Paragraph(content: " “I used to play piano by ear, but now I use my hands.\n"),
         ],
       ),
       MixedParagraph(
+        id: '2',
         list: [
           BoldParagraph(content: "Observational Example:"),
           Paragraph(content: " “I told my computer I needed a break, and now it won’t stop sending me KitKat ads.”\n"),
         ],
       ),
       MixedParagraph(
+        id: '3',
         list: [
           BoldParagraph(content: "Punny Example:"),
           Paragraph(content: " “I would tell you a joke about an elevator, but it’s an uplifting experience.”\n\n"),
@@ -246,30 +365,35 @@ final List<Guide> guides = [
       ),
       BoldParagraph(content: "Tips for Effective One-Liners"),
       MixedParagraph(
+        id: '1',
         list: [
           BoldParagraph(content: "Practice Economy of Words:"),
           Paragraph(content: " Use the fewest words possible without losing clarity.\n"),
         ],
       ),
       MixedParagraph(
+        id: '2',
         list: [
           BoldParagraph(content: "Use Common Experiences:"),
           Paragraph(content: " Jokes about universal experiences are more likely to resonate.\n"),
         ],
       ),
       MixedParagraph(
+        id: '3',
         list: [
           BoldParagraph(content: "Test Different Angles:"),
           Paragraph(content: " Try out different setups and punchlines to see what works best.\n"),
         ],
       ),
       MixedParagraph(
+        id: '4',
         list: [
           BoldParagraph(content: "Avoid Over-Complexity:"),
           Paragraph(content: " Keep it simple. Complexity can make the joke fall flat.\n"),
         ],
       ),
       MixedParagraph(
+        id: '5',
         list: [
           BoldParagraph(content: "Read and Analyze:"),
           Paragraph(content: " Read one-liners from comedians and analyze why they work.\n\n"),
@@ -277,24 +401,28 @@ final List<Guide> guides = [
       ),
       BoldParagraph(content: "Common Pitfalls to Avoid"),
       MixedParagraph(
+        id: '1',
         list: [
           BoldParagraph(content: "Clichés:"),
           Paragraph(content: " Avoid overused phrases unless you’re putting a fresh twist on them.\n"),
         ],
       ),
       MixedParagraph(
+        id: '2',
         list: [
           BoldParagraph(content: "Offensive Content:"),
           Paragraph(content: " Steer clear of humor that might offend or alienate your audience.\n"),
         ],
       ),
       MixedParagraph(
+        id: '3',
         list: [
           BoldParagraph(content: "Over-Explanations:"),
           Paragraph(content: " Don’t over-explain the joke. The humor should be clear immediately.\n"),
         ],
       ),
       MixedParagraph(
+        id: '4',
         list: [
           BoldParagraph(content: "Forced Humor:"),
           Paragraph(content: " If the joke feels forced, it likely won’t land well. It should feel natural and effortless.\n\n"),
@@ -302,12 +430,14 @@ final List<Guide> guides = [
       ),
       BoldParagraph(content: "Practice Exercises"),
       MixedParagraph(
+        id: '1',
         list: [
           BoldParagraph(content: "Daily Life Twist:"),
           Paragraph(content: " Think of something mundane and add a twist. E.g., “Doing laundry is my cardio—I call it the spin cycle workout.”\n"),
         ],
       ),
       MixedParagraph(
+        id: '2',
         list: [
           BoldParagraph(content: "Inversion:"),
           Paragraph(content: " Take a well-known fact and flip it. E.g., “They say the early bird catches the worm, but I say the early worm gets eaten.”\n\n"),
@@ -315,23 +445,28 @@ final List<Guide> guides = [
       ),
       BoldParagraph(content: "Example Exercise"),
       MixedParagraph(
+        id: '1',
         list: [
           BoldParagraph(content: "Topic:"),
           Paragraph(content: " Coffee\n"),
         ],
       ),
       MixedParagraph(
+        id: '2',
         list: [
           BoldParagraph(content: "Associations:"),
           Paragraph(content: " Morning, energy, addiction, caffeine\n"),
         ],
-      ),MixedParagraph(
+      ),
+      MixedParagraph(
+        id: '3',
         list: [
           BoldParagraph(content: "Setup:"),
           Paragraph(content: " “I like my coffee like I like my mornings…”\n"),
         ],
       ),
       MixedParagraph(
+        id: '4',
         list: [
           BoldParagraph(content: "Punchline:"),
           Paragraph(content: " “…nonexistent.”\n"),

@@ -9,12 +9,10 @@ class CustomInput extends StatelessWidget {
     required this.controller,
     this.textStyle,
     this.hasHeight = true,
-    required this.onChanged,
   });
 
   final TextStyle? textStyle;
   final FocusNode focusNode;
-  final void Function(String) onChanged;
   final TextEditingController controller;
   final bool hasHeight;
 
@@ -29,7 +27,6 @@ class CustomInput extends StatelessWidget {
         controller: controller,
         focusNode: focusNode,
         maxLines: null,
-        onChanged: onChanged,
         decoration: InputDecoration.collapsed(
           hintText: '',
           hintStyle: AppTextStyles.bold17.copyWith(

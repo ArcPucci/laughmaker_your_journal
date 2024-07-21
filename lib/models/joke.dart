@@ -14,7 +14,7 @@ class Joke {
         title: '',
         content: '',
         tags: [],
-        created: DateTime(2024, 07, 13),
+        created: DateTime.now(),
       );
 
   Joke({

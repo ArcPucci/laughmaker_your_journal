@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,9 +33,6 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
 
   List<Tag> _tags = [];
 
-  Timer? _debounce1;
-  Timer? _debounce2;
-
   bool get visibleRecordings => recordingsProvider.recordings.isNotEmpty;
 
   @override
@@ -46,8 +41,6 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
     jokesProvider = Provider.of(context, listen: false);
     tagsProvider = Provider.of(context, listen: false);
     recordingsProvider = Provider.of(context, listen: false);
-
-    _joke = jokesProvider.joke;
 
     recordingsProvider.loadRecordings(_joke.id);
 
@@ -59,8 +52,11 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
 
     if (!widget.edit) return;
 
+    _joke = jokesProvider.joke;
     titleController.text = _joke.title;
     contentController.text = _joke.content;
+
+    recordingsProvider.loadRecordings(_joke.id);
 
     _tags = tagsProvider.tags.where((e) => _joke.tags.contains(e.id)).toList();
   }
@@ -124,14 +120,12 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
                           CustomInput(
                             focusNode: titleFocus,
                             controller: titleController,
-                            onChanged: onChangedTitle,
                           ),
                           Gap(16.h),
                           CustomInput(
                             textStyle: AppTextStyles.regular15,
                             focusNode: contentFocus,
                             controller: contentController,
-                            onChanged: onChangedContent,
                           ),
                           Gap(150.h),
                         ],
@@ -211,6 +205,20 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
       if (contentFocus.hasFocus) contentFocus.unfocus();
     }
 
+    final tags = _tags.map((e) => e.id).toList();
+
+    _joke = _joke.copyWith(
+      tags: tags,
+      title: titleController.text,
+      content: contentController.text,
+    );
+
+    if (widget.edit) {
+      jokesProvider.onUpdate(_joke);
+    } else {
+      jokesProvider.onCreate(_joke);
+    }
+
     context.pop();
   }
 
@@ -237,7 +245,7 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
       barrierDismissible: false,
       barrierColor: Colors.transparent,
       builder: (context) {
-        return RecordingsSheet(jokeId: jokesProvider.joke.id);
+        return RecordingsSheet(jokeId: _joke.id);
       },
     );
   }
@@ -258,28 +266,6 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
 
   void onChanged(List<Tag> tags) {
     _tags = tags;
-    final list = _tags.map((e) => e.id).toList();
-    _joke = _joke.copyWith(tags: list);
-
-    jokesProvider.onUpdate(_joke);
     setState(() {});
-  }
-
-  void onChangedTitle(String value) {
-    if (_debounce1?.isActive ?? false) _debounce1?.cancel();
-    _debounce1 = Timer(const Duration(milliseconds: 300), () {
-      _joke = _joke.copyWith(title: value);
-
-      jokesProvider.onUpdate(_joke);
-    });
-  }
-
-  void onChangedContent(String value) {
-    if (_debounce2?.isActive ?? false) _debounce2?.cancel();
-    _debounce2 = Timer(const Duration(milliseconds: 300), () {
-      _joke = _joke.copyWith(content: value);
-
-      jokesProvider.onUpdate(_joke);
-    });
   }
 }

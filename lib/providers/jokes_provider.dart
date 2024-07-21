@@ -39,14 +39,26 @@ class JokesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onCreate() async {
-    final joke = Joke.empty();
+  void onAdd() async {
+    await _recordingsService.onDeleteByJoke(-1);
+    _joke = Joke.empty();
+    _router.go('/add');
+  }
+
+  void onCreate(Joke joke) async {
     _joke = await _jokesService.onCreate(joke);
+
+    final list = await _recordingsService.getRecordings(-1);
+    print(list.length);
+
+    for (final item in list) {
+      await _recordingsService.onUpdate(
+        item.copyWith(jokeId: _joke.id),
+      );
+    }
 
     await _updateJokes();
     notifyListeners();
-
-    _router.go('/add');
   }
 
   void onUpdate(Joke joke) async {
