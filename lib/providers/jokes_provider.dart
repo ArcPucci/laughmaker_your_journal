@@ -16,6 +16,8 @@ class JokesProvider extends ChangeNotifier {
         _recordingsService = recordingsService,
         _router = router;
 
+  bool get empty => _jokes.isEmpty && _lastWeek.isEmpty && _lastMonth.isEmpty;
+
   Joke _joke = Joke.empty();
 
   Joke get joke => _joke;
@@ -24,8 +26,16 @@ class JokesProvider extends ChangeNotifier {
 
   List<Joke> get jokes => _jokes;
 
+  List<Joke> _lastWeek = [];
+
+  List<Joke> get lastWeek => _lastWeek;
+
+  List<Joke> _lastMonth = [];
+
+  List<Joke> get lastMonth => _lastMonth;
+
   void onInit() async {
-    _jokes = await _jokesService.getJokes();
+    await _updateJokes();
     notifyListeners();
   }
 
@@ -33,7 +43,7 @@ class JokesProvider extends ChangeNotifier {
     final joke = Joke.empty();
     _joke = await _jokesService.onCreate(joke);
 
-    _jokes = await _jokesService.getJokes();
+    await _updateJokes();
     notifyListeners();
 
     _router.go('/add');
@@ -42,7 +52,7 @@ class JokesProvider extends ChangeNotifier {
   void onUpdate(Joke joke) async {
     _joke = await _jokesService.onUpdate(joke);
 
-    _jokes = await _jokesService.getJokes();
+    await _updateJokes();
     notifyListeners();
   }
 
@@ -50,8 +60,14 @@ class JokesProvider extends ChangeNotifier {
     await _recordingsService.onDeleteByJoke(_joke.id);
     await _jokesService.onDelete(_joke);
 
-    _jokes = await _jokesService.getJokes();
+    await _updateJokes();
     _router.pop();
+  }
+
+  Future<void> _updateJokes() async {
+    _jokes = await _jokesService.getJokes();
+    _lastWeek = await _jokesService.getLastWeek();
+    _lastMonth = await _jokesService.getLastMonth();
   }
 
   void onSelect(Joke joke) async {

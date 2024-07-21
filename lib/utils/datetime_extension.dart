@@ -9,5 +9,5 @@ extension DateTimeExtension on DateTime {
   DateTime get withZeroTime => DateTime(year, month, day);
   DateTime get averageDay => DateTime(year, month, 15);
   String get shortFullFormat2 => DateFormat('MMM dd, h:mm aaa').format(this);
-  String get fullFormat => DateFormat('dd.MM.yyyy H:m').format(this);
+  String get fullFormat => DateFormat('dd.MM.yyyy').format(this);
 }

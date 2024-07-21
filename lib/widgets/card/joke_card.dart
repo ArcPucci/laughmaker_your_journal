@@ -10,10 +10,14 @@ class JokeCard extends StatelessWidget {
     super.key,
     this.onTap,
     required this.tags,
+    required this.joke,
+    this.hasBorder = true,
   });
 
+  final Joke joke;
   final List<Tag> tags;
   final VoidCallback? onTap;
+  final bool hasBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -23,18 +27,29 @@ class JokeCard extends StatelessWidget {
         children: [
           Container(
             width: 329.w,
-            color: Colors.transparent,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              border: Border(
+                top: hasBorder
+                    ? BorderSide(
+                        width: 0.5.sp,
+                        color: AppTheme.grey4,
+                      )
+                    : BorderSide.none,
+              ),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Gap(4.h),
                 Text(
-                  "Name of Jokes",
+                  joke.title,
                   style: AppTextStyles.medium15,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 Gap(4.h),
                 Text(
-                  "TEACHER: Glenn, how do you spell 'crocodile?' GLENN: -Ov",
+                  joke.content,
                   style: AppTextStyles.medium13,
                   overflow: TextOverflow.ellipsis,
                 ),

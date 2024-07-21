@@ -1,3 +1,5 @@
+import 'package:laughmaker_your_journal/utils/utils.dart';
+
 class Recording {
   final int id;
   final int jokeId;
@@ -54,7 +56,7 @@ class Recording {
       'joke_id': this.jokeId,
       'duration': this.duration,
       'path': this.path,
-      'created': this.created.microsecondsSinceEpoch,
+      'created': this.created.withZeroTime.microsecondsSinceEpoch,
     };
   }
 

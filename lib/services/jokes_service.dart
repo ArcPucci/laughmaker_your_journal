@@ -1,4 +1,5 @@
 import 'package:laughmaker_your_journal/models/models.dart';
+import 'package:laughmaker_your_journal/utils/utils.dart';
 import 'package:sqflite/sqflite.dart';
 
 const jokesTable = "JOKES_TABLE";
@@ -36,12 +37,43 @@ class JokesService {
   }
 
   Future<List<Joke>> getJokes() async {
-    final map = await _database.query(jokesTable);
+    final currentDate = DateTime.now().withZeroTime.microsecondsSinceEpoch;
+    final map = await _database.query(
+      jokesTable,
+      where: 'created = ?',
+      whereArgs: [currentDate],
+    );
     if (map.isEmpty) return [];
 
     final list = map.map(Joke.fromMap).toList();
     return list;
   }
 
+  Future<List<Joke>> getLastWeek() async {
+    final currentDate = DateTime.now().withZeroTime;
+    final temp = currentDate.microsecondsSinceEpoch;
+    final lastWeek =
+        currentDate.subtract(Duration(days: 7)).microsecondsSinceEpoch;
+    final map = await _database.query(jokesTable,
+        where: 'created >= ? AND created < ?', whereArgs: [lastWeek, temp]);
+    if (map.isEmpty) return [];
 
+    final list = map.map(Joke.fromMap).toList();
+    return list;
+  }
+
+  Future<List<Joke>> getLastMonth() async {
+    final currentDate = DateTime.now().withZeroTime;
+    final lastWeek =
+        currentDate.subtract(Duration(days: 7)).microsecondsSinceEpoch;
+    final map = await _database.query(
+      jokesTable,
+      where: 'created < ?',
+      whereArgs: [lastWeek],
+    );
+    if (map.isEmpty) return [];
+
+    final list = map.map(Joke.fromMap).toList();
+    return list;
+  }
 }

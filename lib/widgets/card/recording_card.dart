@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:laughmaker_your_journal/models/models.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
 
 class RecordingCard extends StatelessWidget {
@@ -12,15 +13,18 @@ class RecordingCard extends StatelessWidget {
     this.onPlay,
     this.onDelete,
     this.playing = false,
+    required this.recording,
   });
 
   final int index;
   final bool playing;
+  final Recording recording;
   final VoidCallback? onPlay;
   final VoidCallback? onDelete;
 
   @override
   Widget build(BuildContext context) {
+    final timer = _getTimer(recording.duration);
     return Row(
       children: [
         Text(
@@ -29,12 +33,12 @@ class RecordingCard extends StatelessWidget {
         ),
         Gap(16.w),
         Text(
-          '28.07.2024',
+          recording.created.fullFormat,
           style: AppTextStyles.medium17.copyWith(color: AppTheme.black),
         ),
         Gap(16.w),
         Text(
-          '03:57',
+          timer,
           style: AppTextStyles.medium17.copyWith(color: AppTheme.black),
         ),
         Spacer(),
@@ -59,5 +63,15 @@ class RecordingCard extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String _getTimer(int duration) {
+    final minutes = duration ~/ 60;
+    final seconds = duration % 60;
+
+    final text1 = minutes.toString().padLeft(2, '0');
+    final text2 = seconds.toString().padLeft(2, '0');
+
+    return '$text1:$text2';
   }
 }

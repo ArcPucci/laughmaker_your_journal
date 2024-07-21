@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:laughmaker_your_journal/models/models.dart';
@@ -77,7 +78,8 @@ class _RecordingsSheetState extends State<RecordingsSheet> {
                         child: RecordingCard(
                           index: index,
                           playing: playing == index,
-                          onDelete: () => value.onDelete(recording),
+                          recording: recording,
+                          onDelete: () => onDelete(recording),
                           onPlay: () => onPlay(index, recording),
                         ),
                       );
@@ -107,8 +109,24 @@ class _RecordingsSheetState extends State<RecordingsSheet> {
 
     audioPlayer.onPlayerComplete.listen((event) {
       playing = -1;
+      setState(() {});
     });
 
     setState(() {});
+  }
+
+  void onDelete(Recording recording) async {
+    final delete = await showCupertinoModalPopup(
+      context: context,
+      barrierColor: AppTheme.darkRed.withOpacity(0.62),
+      builder: (context) {
+        return DeleteSheet(
+          title:
+              "Are you sure you want to\ndelete Audio recording ${recording.id}?",
+        );
+      },
+    );
+    if (!(delete ?? true)) return;
+    recordingsProvider.onDelete(recording);
   }
 }

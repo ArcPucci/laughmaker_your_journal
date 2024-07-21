@@ -103,23 +103,39 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
                       ),
                     ),
                   ),
-                  if (tagsProvider.premium) ...[
-                    Gap(24.h),
-                    TagsRow(tags: _tags, onChanged: onChanged),
-                  ],
-                  Gap(24.h),
-                  CustomInput(
-                    focusNode: titleFocus,
-                    controller: titleController,
-                    onChanged: onChangedTitle,
+                  Consumer<TagsProvider>(
+                    builder: (BuildContext context, value, Widget? child) {
+                      return Visibility(
+                        visible: value.premium,
+                        child: Column(
+                          children: [
+                            Gap(24.h),
+                            TagsRow(tags: _tags, onChanged: onChanged),
+                          ],
+                        ),
+                      );
+                    },
                   ),
-                  Gap(16.h),
                   Expanded(
-                    child: CustomInput(
-                      textStyle: AppTextStyles.regular15,
-                      focusNode: contentFocus,
-                      controller: contentController,
-                      onChanged: onChangedContent,
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.symmetric(vertical: 24.h),
+                      child: Column(
+                        children: [
+                          CustomInput(
+                            focusNode: titleFocus,
+                            controller: titleController,
+                            onChanged: onChangedTitle,
+                          ),
+                          Gap(16.h),
+                          CustomInput(
+                            textStyle: AppTextStyles.regular15,
+                            focusNode: contentFocus,
+                            controller: contentController,
+                            onChanged: onChangedContent,
+                          ),
+                          Gap(150.h),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -134,14 +150,22 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Visibility(
-                      visible: visibleRecordings,
-                      child: CustomIconButton(
-                        icon: 'sound',
-                        size: 44.r,
-                        iconSize: 36.r,
-                        onTap: onShowRecordingsList,
-                      ),
+                    Consumer<RecordingsProvider>(
+                      builder: (
+                        BuildContext context,
+                        RecordingsProvider value,
+                        Widget? child,
+                      ) {
+                        return Visibility(
+                          visible: value.recordings.isNotEmpty,
+                          child: CustomIconButton(
+                            icon: 'sound',
+                            size: 44.r,
+                            iconSize: 36.r,
+                            onTap: onShowRecordingsList,
+                          ),
+                        );
+                      },
                     ),
                     Gap(16.h),
                     Row(

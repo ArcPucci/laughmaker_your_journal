@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:laughmaker_your_journal/providers/providers.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
 import 'package:laughmaker_your_journal/widgets/widgets.dart';
@@ -12,8 +11,8 @@ class MyJokesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<JokesProvider, TagsProvider>(
-      builder: (BuildContext context, value, value2, Widget? child) {
+    return Consumer<JokesProvider>(
+      builder: (BuildContext context, value, Widget? child) {
         return Column(
           children: [
             Gap(24.h),
@@ -23,18 +22,7 @@ class MyJokesScreen extends StatelessWidget {
               onAdd: value.onCreate,
             ),
             Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
-                itemCount: value.jokes.length,
-                itemBuilder: (context, index) {
-                  final joke = value.jokes[index];
-                  final tags = value2.getTags(joke.tags);
-                  return JokeCard(
-                    tags: tags,
-                    onTap: () => value.onSelect(joke),
-                  );
-                },
-              ),
+              child: value.empty ? _buildEmptyBody(value) : _buildList(value),
             ),
           ],
         );
@@ -42,23 +30,42 @@ class MyJokesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildList() {
+  Widget _buildList(JokesProvider value) {
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(vertical: 16.h),
       child: Column(
         children: [
-          JokesListCard(title: 'Today'),
-          Gap(20.h),
-          const JokesListCard(title: 'Last 7 days'),
-          Gap(20.h),
-          const JokesListCard(title: 'Last 30 days'),
-          Gap(20.h),
+          if (value.jokes.isNotEmpty) ...[
+            JokesListCard(
+              title: 'Today',
+              jokes: value.jokes,
+              onSelect: value.onSelect,
+            ),
+            Gap(20.h),
+          ],
+          if (value.lastWeek.isNotEmpty) ...[
+            JokesListCard(
+              title: 'Last 7 days',
+              jokes: value.lastWeek,
+              onSelect: value.onSelect,
+            ),
+            Gap(20.h),
+          ],
+          if (value.lastMonth.isNotEmpty) ...[
+            JokesListCard(
+              title: 'Last 30 days',
+              jokes: value.lastMonth,
+              onSelect: value.onSelect,
+            ),
+            Gap(20.h),
+          ],
+          Gap(100.h),
         ],
       ),
     );
   }
 
-  Widget _buildEmptyBody(BuildContext context) {
+  Widget _buildEmptyBody(JokesProvider value) {
     return Column(
       children: [
         Gap(236.h),
@@ -67,7 +74,7 @@ class MyJokesScreen extends StatelessWidget {
           size: 68.r,
           iconSize: 56.r,
           borderRadius: 10,
-          onTap: () => context.go('/add'),
+          onTap: value.onCreate,
         ),
         Gap(8.h),
         Text("You don't have records.", style: AppTextStyles.regular17),
