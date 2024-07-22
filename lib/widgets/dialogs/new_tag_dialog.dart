@@ -42,7 +42,7 @@ class _NewTagDialogState extends State<NewTagDialog> {
               "Name your tag",
               style: AppTextStyles.bold22.copyWith(color: AppTheme.black2),
             ),
-            CustomInput2(controller: controller),
+            CustomInput2(controller: controller, maxLength: 20),
             CustomButton2(
               text: 'Add tag',
               color: AppTheme.red,

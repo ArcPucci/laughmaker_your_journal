@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -35,6 +36,10 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
 
   bool get visibleRecordings => recordingsProvider.recordings.isNotEmpty;
 
+  bool get hasChanges =>
+      titleController.text != _joke.title ||
+      contentController.text != _joke.content;
+
   @override
   void initState() {
     super.initState();
@@ -59,6 +64,11 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
     recordingsProvider.loadRecordings(_joke.id);
 
     _tags = tagsProvider.tags.where((e) => _joke.tags.contains(e.id)).toList();
+    final temp = _tags.map((e) => e.id).toList();
+
+    _joke = _joke.copyWith(tags: temp);
+
+    jokesProvider.onUpdate(_joke);
   }
 
   bool get hasDone => titleFocus.hasFocus || contentFocus.hasFocus;
@@ -89,6 +99,7 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
                   Gap(24.h),
                   BackAppBar(
                     title: "My Jokes",
+                    onBack: onExit,
                     laggingWidget: GestureDetector(
                       onTap: onDone,
                       child: Text(
@@ -267,5 +278,31 @@ class _AddJokeScreenState extends State<AddJokeScreen> {
   void onChanged(List<Tag> tags) {
     _tags = tags;
     setState(() {});
+  }
+
+  void onExit() async {
+    final temp = _tags.map((e) => e.id).toList();
+
+    if (!hasChanges && listEquals(temp, _joke.tags)) {
+      context.pop();
+      return;
+    }
+
+    final exit = await _onExit();
+    if (!exit) return;
+
+    context.pop();
+  }
+
+  Future<bool> _onExit() async {
+    final exit = await showDialog(
+      context: context,
+      barrierColor: AppTheme.darkRed.withOpacity(0.62),
+      builder: (context) {
+        return Center(child: ExitDialog());
+      },
+    );
+
+    return (exit ?? false);
   }
 }

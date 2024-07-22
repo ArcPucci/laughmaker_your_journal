@@ -14,27 +14,35 @@ class RecordingCard extends StatelessWidget {
     this.onDelete,
     this.playing = false,
     required this.recording,
+    required this.duration,
   });
 
   final int index;
   final bool playing;
+  final int duration;
   final Recording recording;
   final VoidCallback? onPlay;
   final VoidCallback? onDelete;
 
   @override
   Widget build(BuildContext context) {
-    final timer = _getTimer(recording.duration);
+    final timer = _getTimer(playing ? duration : recording.duration);
     return Row(
       children: [
-        Text(
-          '${index + 1}.',
-          style: AppTextStyles.medium17.copyWith(color: AppTheme.black),
+        SizedBox(
+          width: 24.w,
+          child: Text(
+            '${index + 1}.',
+            style: AppTextStyles.medium17.copyWith(color: AppTheme.black),
+          ),
         ),
         Gap(16.w),
-        Text(
-          recording.created.fullFormat,
-          style: AppTextStyles.medium17.copyWith(color: AppTheme.black),
+        SizedBox(
+          width: 100.w,
+          child: Text(
+            recording.created.fullFormat,
+            style: AppTextStyles.medium17.copyWith(color: AppTheme.black),
+          ),
         ),
         Gap(16.w),
         Text(

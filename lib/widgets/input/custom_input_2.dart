@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:laughmaker_your_journal/utils/utils.dart';
 
 class CustomInput2 extends StatelessWidget {
-  CustomInput2({super.key, this.controller});
+  CustomInput2({
+    super.key,
+    this.controller,
+    this.maxLength,
+  });
 
+  final int? maxLength;
   final TextEditingController? controller;
 
   final focusNode = FocusNode();
@@ -25,6 +31,7 @@ class CustomInput2 extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: TextField(
           controller: controller,
+          inputFormatters: [LengthLimitingTextInputFormatter(maxLength)],
           style: AppTextStyles.medium15.copyWith(color: AppTheme.black2),
           decoration: InputDecoration.collapsed(hintText: ''),
         ),

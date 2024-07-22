@@ -18,7 +18,9 @@ class QuizProvider extends ChangeNotifier {
 
   List<String> get answers => _answers;
 
-  List<Quote> _quotes = List.from(quotes);
+  List<Quote> _quotes = List.from(classicQuotes);
+
+  Level _level = levels.first;
 
   int _currentIndex = 0;
 
@@ -38,9 +40,11 @@ class QuizProvider extends ChangeNotifier {
 
   ButtonState get buttonState => _buttonState;
 
-  static final List<String> _names = quotes.map((e) => e.author).toList();
+  List<String> _names = [];
 
-  void onStart() {
+  void onStart(Level level) {
+    _names = level.quotes.map((e) => e.author).toList();
+    _level = level;
     _buttonState = ButtonState.idle;
     _currentIndex = 0;
     _score = 0;
@@ -87,12 +91,11 @@ class QuizProvider extends ChangeNotifier {
   }
 
   void goToLibrary() {
-    // _router.go('/');
     _router.pop();
   }
 
   void _onGenerateQuotes() {
-    final temp = List.from(quotes);
+    final temp = List.from(_level.quotes);
 
     temp.shuffle();
     _quotes = List.from(temp.take(10));

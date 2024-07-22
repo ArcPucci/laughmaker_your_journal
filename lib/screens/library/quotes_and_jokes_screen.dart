@@ -10,17 +10,18 @@ class QuotesAndJokesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final allQuestions = levels.map((e) => e.quotes).reduce((a, b) => a + b);
     return Column(
       children: [
         Gap(24.h),
         const BackAppBar(title: 'Library'),
         Expanded(
           child: ListView.builder(
-            itemCount: quotes.length,
+            itemCount: allQuestions.length,
             padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 16.w),
             itemBuilder: (context, index) {
-              final quote = quotes[index];
-              final last = index == quotes.length - 1;
+              final quote = allQuestions[index];
+              final last = index == allQuestions.length - 1;
               return Padding(
                 padding: EdgeInsets.only(bottom: last ? 160.h : 16.h),
                 child: QuoteCard(quote: quote),

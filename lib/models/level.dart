@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:laughmaker_your_journal/models/models.dart';
 
 class Level {
   final int id;
@@ -10,6 +11,7 @@ class Level {
   final double imageHeight;
   final double? right;
   final double? bottom;
+  final List<Quote> quotes;
 
   Level({
     required this.id,
@@ -21,5 +23,6 @@ class Level {
     required this.imageHeight,
     this.right,
     this.bottom,
+    required this.quotes,
   });
 }

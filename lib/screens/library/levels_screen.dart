@@ -33,7 +33,10 @@ class LevelsScreen extends StatelessWidget {
                   final level = levels[index];
                   return Padding(
                     padding: EdgeInsets.only(bottom: 24.h),
-                    child: LevelCard(level: level, onTap: value.onStart),
+                    child: LevelCard(
+                      level: level,
+                      onTap: () => value.onStart(level),
+                    ),
                   );
                 },
               ),

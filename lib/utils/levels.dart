@@ -13,6 +13,7 @@ final List<Level> levels = [
     imageHeight: 191.h,
     bottom: 0,
     right: 0,
+    quotes: classicQuotes,
   ),
   Level(
     id: 0,
@@ -24,6 +25,7 @@ final List<Level> levels = [
     imageHeight: 165.h,
     bottom: 0,
     right: 11.w,
+    quotes: modernQuotes,
   ),
   Level(
     id: 0,
@@ -35,5 +37,6 @@ final List<Level> levels = [
     imageHeight: 134.h,
     bottom: 0,
     right: 0,
+    quotes: mostKnownQuotes,
   ),
 ];

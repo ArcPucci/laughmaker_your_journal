@@ -22,6 +22,7 @@ class _RecordingsSheetState extends State<RecordingsSheet> {
   late AudioPlayer audioPlayer;
 
   int playing = -1;
+  int _duration = 0;
 
   @override
   void initState() {
@@ -79,7 +80,8 @@ class _RecordingsSheetState extends State<RecordingsSheet> {
                           index: index,
                           playing: playing == index,
                           recording: recording,
-                          onDelete: () => onDelete(index, recording),
+                          duration: _duration,
+                          onDelete: () => onDelete(index + 1, recording),
                           onPlay: () => onPlay(index, recording),
                         ),
                       );
@@ -107,12 +109,19 @@ class _RecordingsSheetState extends State<RecordingsSheet> {
     Source source = DeviceFileSource(recording.path);
     await audioPlayer.play(source);
 
+    final duration = await audioPlayer.getDuration() ?? Duration.zero;
+    final seconds = duration.inSeconds;
+    setState(() {});
+
     audioPlayer.onPlayerComplete.listen((event) {
       playing = -1;
       setState(() {});
     });
 
-    setState(() {});
+    await audioPlayer.onPositionChanged.listen((event) {
+      _duration = seconds - event.inSeconds;
+      if (mounted) setState(() {});
+    });
   }
 
   void onDelete(int index, Recording recording) async {

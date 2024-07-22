@@ -23,6 +23,7 @@ export 'sheets/recordings_sheet.dart';
 export 'dialogs/recording_hint_dialog.dart';
 export 'dialogs/tags_dialog.dart';
 export 'dialogs/new_tag_dialog.dart';
+export 'dialogs/exit_dialog.dart';
 export 'boxes/quotes_and_jokes_box.dart';
 export 'boxes/quiz_box.dart';
 export 'custom_transition.dart';
