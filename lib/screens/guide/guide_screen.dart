@@ -29,96 +29,100 @@ class GuideScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 55.h,
-                    left: 0,
-                    right: 0,
-                    child: Center(
-                      child: Image.asset(
-                        'assets/png/bg.png',
-                        width: 280.w,
-                        height: 528.h,
-                      ),
-                    ),
-                  ),
-                  Positioned.fill(
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 24.h,
-                        horizontal: 16.w,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: List.generate(
-                          value.guide.paragraphs.length,
-                          (index) {
-                            final paragraph = value.guide.paragraphs[index];
-
-                            if (paragraph is BoldParagraph) {
-                              return Text(
-                                '${paragraph.content}\n',
-                                style: AppTextStyles.medium17.copyWith(
-                                  color: AppTheme.black,
-                                ),
-                              );
-                            }
-
-                            if (paragraph is MixedParagraph) {
-                              return Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if (paragraph.id != null)
-                                    Text(
-                                      paragraph.id! + '. ',
-                                      style: AppTextStyles.regular17.copyWith(
-                                        height: 1.368,
-                                      ),
-                                    ),
-                                  Expanded(
-                                    child: RichText(
-                                      text: TextSpan(
-                                        children: List.generate(
-                                          paragraph.list.length,
-                                          (index) {
-                                            final temp = paragraph.list[index];
-
-                                            if (temp is BoldParagraph) {
-                                              return TextSpan(
-                                                text: temp.content,
-                                                style: AppTextStyles.medium17
-                                                    .copyWith(
-                                                  color: AppTheme.black,
-                                                ),
-                                              );
-                                            }
-
-                                            return TextSpan(
-                                              text: temp.content,
-                                              style: AppTextStyles.regular17,
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }
-
-                            return Text(
-                              '${paragraph.content}\n',
-                              style: AppTextStyles.regular17,
-                            );
-                          },
+              child: SafeArea(
+                top: false,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 55.h,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Image.asset(
+                          'assets/png/bg.png',
+                          width: 280.w,
+                          height: 528.h,
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    Positioned.fill(
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 24.h,
+                          horizontal: 16.w,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: List.generate(
+                            value.guide.paragraphs.length,
+                            (index) {
+                              final paragraph = value.guide.paragraphs[index];
+
+                              if (paragraph is BoldParagraph) {
+                                return Text(
+                                  '${paragraph.content}\n',
+                                  style: AppTextStyles.medium17.copyWith(
+                                    color: AppTheme.black,
+                                  ),
+                                );
+                              }
+
+                              if (paragraph is MixedParagraph) {
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if (paragraph.id != null)
+                                      Text(
+                                        paragraph.id! + '. ',
+                                        style: AppTextStyles.regular17.copyWith(
+                                          height: 1.368,
+                                        ),
+                                      ),
+                                    Expanded(
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: List.generate(
+                                            paragraph.list.length,
+                                            (index) {
+                                              final temp = paragraph.list[index];
+
+                                              if (temp is BoldParagraph) {
+                                                return TextSpan(
+                                                  text: temp.content,
+                                                  style: AppTextStyles.medium17
+                                                      .copyWith(
+                                                    color: AppTheme.black,
+                                                  ),
+                                                );
+                                              }
+
+                                              return TextSpan(
+                                                text: temp.content,
+                                                style: AppTextStyles.regular17,
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }
+
+                              return Text(
+                                '${paragraph.content}\n',
+                                style: AppTextStyles.regular17,
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
+            Gap(66.h),
           ],
         );
       },

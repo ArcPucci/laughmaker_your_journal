@@ -74,14 +74,15 @@ class _TagsDialogState extends State<TagsDialog> {
                       );
                     },
                   ),
-                  GestureDetector(
-                    onTap: () => onCreateTag(context),
-                    child: Image.asset(
-                      'assets/png/add_button.png',
-                      width: 57.w,
-                      height: 33.h,
+                  if (value.tags.length < 5)
+                    GestureDetector(
+                      onTap: () => onCreateTag(context),
+                      child: Image.asset(
+                        'assets/png/add_button.png',
+                        width: 57.w,
+                        height: 33.h,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ],

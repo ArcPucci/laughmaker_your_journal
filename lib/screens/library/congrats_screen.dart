@@ -21,11 +21,10 @@ class CongratsScreen extends StatelessWidget {
           Positioned.fill(
             child: Consumer<QuizProvider>(
               builder: (BuildContext context, value, Widget? child) {
-                final overlay = MediaQuery.of(context).padding;
                 return SafeArea(
                   child: Column(
                     children: [
-                      Gap(97.h - overlay.bottom),
+                      Gap(97.h),
                       Text(
                         getTitle(value.score),
                         style: AppTextStyles.pcRegular.copyWith(

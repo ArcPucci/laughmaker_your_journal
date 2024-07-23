@@ -13,18 +13,22 @@ class MyJokesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<JokesProvider>(
       builder: (BuildContext context, value, Widget? child) {
-        return Column(
-          children: [
-            Gap(24.h),
-            CustomAppBar(
-              title: 'My Jokes',
-              hasEdit: true,
-              onAdd: value.onAdd,
-            ),
-            Expanded(
-              child: value.empty ? _buildEmptyBody(value) : _buildList(value),
-            ),
-          ],
+        return SafeArea(
+          top: false,
+          child: Column(
+            children: [
+              Gap(24.h),
+              CustomAppBar(
+                title: 'My Jokes',
+                hasEdit: true,
+                onAdd: value.onAdd,
+              ),
+              Expanded(
+                child: value.empty ? _buildEmptyBody(value) : _buildList(value),
+              ),
+              Gap(66.h),
+            ],
+          ),
         );
       },
     );

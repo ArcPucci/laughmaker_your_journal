@@ -25,10 +25,14 @@ class NavigationScreen extends StatelessWidget {
       drawerScrimColor: AppTheme.darkRed.withOpacity(0.62),
       body: SafeArea(
         bottom: false,
-        child: Column(
+        child: Stack(
           children: [
-            Expanded(child: child),
-            if (visible) CustomBottomBar(path: path),
+            Positioned.fill(child: child),
+            if (visible)
+              Positioned(
+                bottom: 0,
+                child: CustomBottomBar(path: path),
+              ),
           ],
         ),
       ),

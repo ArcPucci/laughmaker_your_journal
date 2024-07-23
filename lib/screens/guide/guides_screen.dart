@@ -12,35 +12,39 @@ class GuidesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Gap(24.h),
-        const CustomAppBar(title: 'Guide'),
-        Consumer<GuidesProvider>(
-          builder: (BuildContext context, value, Widget? child) {
-            return Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(vertical: 24.h),
-                child: Column(
-                  children: List.generate(
-                    guides.length,
-                    (index) {
-                      final guide = guides[index];
-                      return Padding(
-                        padding: EdgeInsets.only(top: index != 0 ? 16.h : 0),
-                        child: GuideCard(
-                          guide: guide,
-                          onTap: () => value.onSelect(guide),
-                        ),
-                      );
-                    },
+    return SafeArea(
+      top: false,
+      child: Column(
+        children: [
+          Gap(24.h),
+          const CustomAppBar(title: 'Guide'),
+          Consumer<GuidesProvider>(
+            builder: (BuildContext context, value, Widget? child) {
+              return Expanded(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(vertical: 24.h),
+                  child: Column(
+                    children: List.generate(
+                      guides.length,
+                      (index) {
+                        final guide = guides[index];
+                        return Padding(
+                          padding: EdgeInsets.only(top: index != 0 ? 16.h : 0),
+                          child: GuideCard(
+                            guide: guide,
+                            onTap: () => value.onSelect(guide),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
-        ),
-      ],
+              );
+            },
+          ),
+          Gap(66.h),
+        ],
+      ),
     );
   }
 }

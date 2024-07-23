@@ -4,6 +4,7 @@ import 'package:laughmaker_your_journal/widgets/widgets.dart';
 
 class RouterController {
   final router = GoRouter(
+    initialLocation: "/library/levels/congrats",
     routes: [
       ShellRoute(
         pageBuilder: (context, state, child) {
