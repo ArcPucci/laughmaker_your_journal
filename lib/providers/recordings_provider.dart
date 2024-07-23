@@ -20,9 +20,6 @@ class RecordingsProvider extends ChangeNotifier {
   int _jokeId = -1;
 
   void onInit() async {
-    final list = await _recordingsService.getRecordings(-1);
-    print(list.length);
-
     await _recordingsService.onDeleteByJoke(-1);
   }
 
@@ -43,7 +40,7 @@ class RecordingsProvider extends ChangeNotifier {
     _lastRecordingId = list.last.id + 1;
   }
 
-  void onDelete(Recording recording) async {
+  Future<void> onDelete(Recording recording) async {
     await _recordingsService.onDelete(recording);
 
     await _getLastId();

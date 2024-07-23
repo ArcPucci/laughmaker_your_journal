@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -30,37 +31,24 @@ class QuizScreen extends StatelessWidget {
             ),
             Gap(12.h),
             CustomIndicator(total: value.total, current: value.currentIndex),
-            Expanded(
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(vertical: 32.h),
-                      child: Column(
-                        children: [
-                          QuestionCard(
-                            quote: value.quote,
-                            answers: value.answers,
-                            onAnswer: value.onAnswer,
-                            selected: value.selectedIndex,
-                            state: value.buttonState,
-                          ),
-                          Gap(250.h),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    right: 16.w,
-                    bottom: 24.h + overlay.bottom,
-                    child: CheckButton(
-                      buttonState: value.buttonState,
-                      onTap: value.onCheck,
-                    ),
-                  ),
-                ],
+            Gap(32.h),
+            QuestionCard(
+              quote: value.quote,
+              answers: value.answers,
+              onAnswer: value.onAnswer,
+              selected: value.selectedIndex,
+              state: value.buttonState,
+            ),
+            Spacer(),
+            Container(
+              width: 361.w,
+              alignment: Alignment.centerRight,
+              child: CheckButton(
+                buttonState: value.buttonState,
+                onTap: value.onCheck,
               ),
             ),
+            Gap(24.h + overlay.bottom),
           ],
         );
       },

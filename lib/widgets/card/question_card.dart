@@ -1,5 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:laughmaker_your_journal/models/models.dart';
@@ -27,6 +29,7 @@ class QuestionCard extends StatelessWidget {
     final checked = state == ButtonState.correct || state == ButtonState.wrong;
     return Container(
       width: 361.w,
+      height: 540.h,
       decoration: BoxDecoration(
         color: AppTheme.white3,
         borderRadius: BorderRadius.circular(10),
@@ -49,8 +52,10 @@ class QuestionCard extends StatelessWidget {
             ),
           ),
           Gap(8.h),
-          Text(quote.content, style: AppTextStyles.medium24),
-          Gap(32.h),
+          Expanded(
+            child: Center(child: AutoSizeText(quote.content, style: AppTextStyles.medium24)),
+          ),
+          Gap(8.h),
           Column(
             children: List.generate(
               answers.length,

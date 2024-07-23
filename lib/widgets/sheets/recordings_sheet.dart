@@ -135,6 +135,9 @@ class _RecordingsSheetState extends State<RecordingsSheet> {
       },
     );
     if (!(delete ?? true)) return;
-    recordingsProvider.onDelete(recording);
+    await recordingsProvider.onDelete(recording);
+    if(recordingsProvider.recordings.isNotEmpty) return;
+
+    Navigator.of(context).pop();
   }
 }

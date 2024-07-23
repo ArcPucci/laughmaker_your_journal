@@ -49,7 +49,6 @@ class JokesProvider extends ChangeNotifier {
     _joke = await _jokesService.onCreate(joke);
 
     final list = await _recordingsService.getRecordings(-1);
-    print(list.length);
 
     for (final item in list) {
       await _recordingsService.onUpdate(
@@ -62,7 +61,8 @@ class JokesProvider extends ChangeNotifier {
   }
 
   void onUpdate(Joke joke) async {
-    _joke = await _jokesService.onUpdate(joke);
+    await _jokesService.onUpdate(joke);
+    _joke = joke;
 
     await _updateJokes();
     notifyListeners();

@@ -17,15 +17,14 @@ class JokesService {
     return joke.copyWith(id: id);
   }
 
-  Future<Joke> onUpdate(Joke joke) async {
+  Future<void> onUpdate(Joke joke) async {
     final map = joke.toMap();
-    final id = await _database.update(
+    await _database.update(
       jokesTable,
       map,
       where: 'id = ?',
       whereArgs: [joke.id],
     );
-    return joke.copyWith(id: id);
   }
 
   Future<void> onDelete(Joke joke) async {

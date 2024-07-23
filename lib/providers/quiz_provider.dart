@@ -55,6 +55,8 @@ class QuizProvider extends ChangeNotifier {
   }
 
   void onAnswer(int index) {
+    if (_buttonState == ButtonState.wrong ||
+        _buttonState == ButtonState.correct) return;
     _selectedIndex = index;
     _buttonState = ButtonState.selected;
     notifyListeners();
